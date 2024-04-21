@@ -24,6 +24,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         background_menu.qrc
+        game.h game.cpp game.ui
+
+
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Civ APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
