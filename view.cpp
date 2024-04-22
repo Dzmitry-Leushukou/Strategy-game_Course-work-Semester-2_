@@ -1,5 +1,5 @@
 #include "view.h"
-#include <QtOpenGLWidgets/QOpenGLWidget>
+#include <QOpenGLWidget>
 #include <QDebug>
 #include "block.h"
 #include <QApplication>
@@ -9,7 +9,7 @@ View::View(QGraphicsScene *scene)
     setScene(scene);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    //this->setViewport(new QOpenGLWidget(this));
+    this->setViewport(new QOpenGLWidget(this));
     setMouseTracking(true);
 
     game=new Game(this);
