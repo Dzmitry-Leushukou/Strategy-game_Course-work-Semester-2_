@@ -6,7 +6,7 @@ Game::Game(View *view)
     this->view=view;
     this->scene=view->get_scene();
     QScreen *chosen = nullptr;
-    QRect resolution=chosen->geometry();
+    QRect resolution={1,1,1023,600};
     this->WIDTH=resolution.width();
     this->HEIGHT=resolution.height();
 }
