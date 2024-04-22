@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include "gamewindow.h"
+//#include "gamewindow.h"
 #include "game.h"
 
 #pragma once

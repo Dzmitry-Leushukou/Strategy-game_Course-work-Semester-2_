@@ -1,12 +1,13 @@
 #include "block.h"
 
-Block::Block(QGraphicsItem *parent)
+Block::Block(QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
-    //draw the block
-    QVector<QPointF>hexPoints;
-    hexPoints<<QPointF(1,0)<<QPointF(2,0)<<QPointF(3,1)<<QPointF(2,2)<<QPointF(1,2)<<QPointF(0,1);
+    qDebug()<<pixmap();
+    setPixmap(QPixmap(":game/resource/image.png"));
+    qDebug()<<pixmap();
+}
 
-    QPolygonF hexagon(hexPoints);
+void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
 
-    setPolygon(hexagon);
 }

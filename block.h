@@ -1,18 +1,23 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include<QGraphicsItem>
+#include<QGraphicsPixmapItem>
 
-class Block : public QGraphicsPolygonItem
+class Block : public QGraphicsPixmapItem
 {
 public:
     //Constructors
     Block(QGraphicsItem* parent=NULL);
 
+    //Methods
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+
     //getters
 
 
     //setters
+
+
 private:
     short int owner;
     short int building;

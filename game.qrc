@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/game">
         <file>resource/Money.png</file>
+        <file>resource/image.png</file>
     </qresource>
 </RCC>

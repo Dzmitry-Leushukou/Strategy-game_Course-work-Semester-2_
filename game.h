@@ -2,7 +2,8 @@
 #define GAME_H
 
 #include <QGraphicsView>
-#include "block.h"
+//#include <QGraphicsScene >
+#include "map.h"
 
 #pragma once
 
@@ -18,8 +19,9 @@ public:
 
     //Attributes
     QGraphicsScene* scene;
-    //Map* map; TODO
+    Map* map;
     short int whosTurn;
+
 private:
 
 };

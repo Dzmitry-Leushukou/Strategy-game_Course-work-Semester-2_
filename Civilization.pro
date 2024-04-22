@@ -14,18 +14,17 @@ CONFIG += c++17
 SOURCES += \
     block.cpp \
     game.cpp \
-    gamewindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    map.cpp
 
 HEADERS += \
     block.h \
     game.h \
-    gamewindow.h \
-    mainwindow.h
+    mainwindow.h \
+    map.h
 
 FORMS += \
-    gamewindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.
