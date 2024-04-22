@@ -2,6 +2,7 @@
 #define BLOCK_H
 
 #include<QGraphicsPixmapItem>
+#include<QDebug>
 
 class Block : public QGraphicsPixmapItem
 {
@@ -17,6 +18,8 @@ public:
 
     //setters
 
+
+    void setOwner(short newOwner);
 
 private:
     short int owner;

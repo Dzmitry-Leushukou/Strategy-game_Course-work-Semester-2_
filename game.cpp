@@ -8,8 +8,8 @@ Game::Game(QWidget *parent)
 
     //set up the scene
     scene = new QGraphicsScene();
-    scene->setSceneRect(0,0,1440,900);
-    setFixedSize(1440,900);
+    scene->setSceneRect(0,0,1440,896);
+    setFixedSize(1440,896);
     setScene(scene);
 
 
