@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "gamewindow.h"
+#include "game.h"
 
 #pragma once
 
@@ -28,6 +29,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    GameWindow *gamewindow;
+    //GameWindow *gamewindow;
+    Game* game;
 };
 #endif // MAINWINDOW_H

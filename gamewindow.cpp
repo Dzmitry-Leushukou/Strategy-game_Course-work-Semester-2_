@@ -6,6 +6,7 @@ GameWindow::GameWindow(QWidget *parent) :
     ui(new Ui::GameWindow)
 {
     ui->setupUi(this);
+
 }
 
 GameWindow::~GameWindow()

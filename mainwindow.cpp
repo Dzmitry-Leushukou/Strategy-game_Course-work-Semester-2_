@@ -8,8 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
 
     ui->setupUi(this);
-    gamewindow = new GameWindow();
-    connect(gamewindow, &GameWindow::firstWindow, this, &MainWindow::show);
+    //gamewindow = new GameWindow();
+    //connect(gamewindow, &GameWindow::firstWindow, this, &MainWindow::show);
 }
 
 MainWindow::~MainWindow()
@@ -19,8 +19,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_PlayButton_clicked()
 {
-    gamewindow->show();
     this->close();
+    game=new Game();
+    game->show();
+    //gamewindow->show();
+    game->start();
+
 }
 
 

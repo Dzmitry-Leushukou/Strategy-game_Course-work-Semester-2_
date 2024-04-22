@@ -1,31 +1,25 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "camera.h"
-#include "world.h"
-#include <QApplication>
-#include <QGuiApplication>
-#include <QScreen>
-//#include "player.h"
+#include <QGraphicsView>
+#include "block.h"
 
 #pragma once
 
-class View;
-class Game
+//class View;
+class Game : public QGraphicsView
 {
 public:
-    Game(View *view);
-    void load();
-    void update();
-    int WIDTH,HEIGHT;
+    //Costructors
+    Game(QWidget* parent=NULL);
 
-    void addSceneItem(QGraphicsItem*);
-    Camera *camera;
-    World *world;
-    //Player *player;
-    View *view;
-    QGraphicsScene *scene;
+    //Methods
+    void start();
 
+    //Attributes
+    QGraphicsScene* scene;
+    //Map* map; TODO
+    short int whosTurn;
 private:
 
 };

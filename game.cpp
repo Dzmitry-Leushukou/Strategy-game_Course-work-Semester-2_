@@ -1,34 +1,23 @@
 #include "game.h"
-#include "view.h"
 
-Game::Game(View *view)
+Game::Game(QWidget *parent)
 {
-    this->view=view;
-    this->scene=view->get_scene();
-    QScreen *chosen = nullptr;
-    QRect resolution={1,1,1023,600};
-    this->WIDTH=resolution.width();
-    this->HEIGHT=resolution.height();
+    //set up the screen
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    //set up the scene
+    scene = new QGraphicsScene();
+    scene->setSceneRect(0,0,1440,900);
+    setScene(scene);
 
 }
 
-void Game::load()
+void Game::start()
 {
-    //this->camera=new Camera(this);
-    //this->world=new World(this);
-    //this->world->load();
-
-    //Texture Loading
+    //Test
+    Block* block=new Block();
+    scene->addItem(block);
+    block->setPos(100,100);
+    //block->
 }
-
-void Game::update()
-{
-    //world->update(16);
-    //camera->update();
-}
-
-void Game::addSceneItem(QGraphicsItem* t)
-{
-    scene->addItem(t);
-}
-

@@ -2,8 +2,7 @@
 #define GAMEWINDOW_H
 
 #include <QMainWindow>
-#include <QScreen>
-#include "view.h"
+#include "game.h"
 
 #pragma once
 
@@ -22,7 +21,7 @@ public:
 
 private:
     Ui::GameWindow *ui;
-    QGraphicsScene scene;
+    Game* game;
 };
 
 #endif // GAMEWINDOW_H

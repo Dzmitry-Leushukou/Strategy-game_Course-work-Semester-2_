@@ -12,25 +12,17 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    aabb.cpp \
     block.cpp \
-    camera.cpp \
     game.cpp \
     gamewindow.cpp \
     main.cpp \
-    mainwindow.cpp \
-    view.cpp \
-    world.cpp
+    mainwindow.cpp
 
 HEADERS += \
-    aabb.h \
     block.h \
-    camera.h \
     game.h \
     gamewindow.h \
-    mainwindow.h \
-    view.h \
-    world.h
+    mainwindow.h
 
 FORMS += \
     gamewindow.ui \
@@ -42,7 +34,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    background_menu.qrc
+    background_menu.qrc \
+    game.qrc
 
 DISTFILES += \
     Civilization.pro.user \

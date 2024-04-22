@@ -1,23 +1,23 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include <QRectF>
-#pragma once
+#include<QGraphicsItem>
 
-class Block
+class Block : public QGraphicsPolygonItem
 {
 public:
-    Block(int, int, int);
-    void update();
-    //Real coords
-    int getRX();
-    int getRY();
+    //Constructors
+    Block(QGraphicsItem* parent=NULL);
 
-    QRectF getTextureByID(int);
-    QRectF texture;
+    //getters
 
-    const static int SIZE = 32;
-    int id,x,y;
+
+    //setters
+private:
+    short int owner;
+    short int building;
+    short int type;
+    short int subtype;
 };
 
 #endif // BLOCK_H

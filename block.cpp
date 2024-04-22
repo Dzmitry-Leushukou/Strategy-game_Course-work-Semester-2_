@@ -1,34 +1,12 @@
 #include "block.h"
 
-//Block::Block() {}
-
-Block::Block(int x, int y, int id)
+Block::Block(QGraphicsItem *parent)
 {
-    this->x=x;
-    this->y=y;
-    this->id=id;
-    this->texture=getTextureByID(id);
-}
+    //draw the block
+    QVector<QPointF>hexPoints;
+    hexPoints<<QPointF(1,0)<<QPointF(2,0)<<QPointF(3,1)<<QPointF(2,2)<<QPointF(1,2)<<QPointF(0,1);
 
-void Block::update()
-{
+    QPolygonF hexagon(hexPoints);
 
-}
-
-int Block::getRX()
-{
-    return this->x*SIZE;
-}
-
-int Block::getRY()
-{
-    return this->y*SIZE;
-}
-
-QRectF Block::getTextureByID(int)
-{
-    int tileSize = 16, tilesOnLine = 16;
-    float tx = id%tilesOnLine, ty = id/tilesOnLine;
-    QRectF texture = QRectF(tx * tileSize, ty * tileSize, tileSize, tileSize);
-    return texture;
+    setPolygon(hexagon);
 }
