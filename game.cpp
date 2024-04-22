@@ -9,6 +9,7 @@ Game::Game(View *view)
     QRect resolution={1,1,1023,600};
     this->WIDTH=resolution.width();
     this->HEIGHT=resolution.height();
+
 }
 
 void Game::load()
@@ -24,5 +25,10 @@ void Game::update()
 {
     //world->update(16);
     //camera->update();
+}
+
+void Game::addSceneItem(QGraphicsItem* t)
+{
+    scene->addItem(t);
 }
 

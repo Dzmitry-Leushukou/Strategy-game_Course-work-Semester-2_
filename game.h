@@ -19,6 +19,7 @@ public:
     void update();
     int WIDTH,HEIGHT;
 
+    void addSceneItem(QGraphicsItem*);
     Camera *camera;
     World *world;
     //Player *player;
