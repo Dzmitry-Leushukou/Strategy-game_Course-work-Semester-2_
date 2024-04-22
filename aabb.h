@@ -2,6 +2,7 @@
 #define AABB_H
 
 #include <QRectF>
+#pragma once
 
 class AABB
 {

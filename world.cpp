@@ -1,3 +1,3 @@
 #include "world.h"
 
-world::world() {}
+World::World() {}

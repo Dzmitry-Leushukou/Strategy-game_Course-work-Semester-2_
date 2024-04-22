@@ -1,3 +1,3 @@
 #include "camera.h"
 
-camera::camera() {}
+Camera::Camera() {}

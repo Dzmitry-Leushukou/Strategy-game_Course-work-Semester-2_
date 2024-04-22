@@ -3,10 +3,10 @@
 
 #include <QGraphicsItem>
 
-class world : public QGraphicsItem
+class World : public QGraphicsItem
 {
 public:
-    world();
+    World();
 };
 
 #endif // WORLD_H

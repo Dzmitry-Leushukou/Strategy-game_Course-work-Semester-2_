@@ -1,10 +1,10 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-class camera
+class Camera
 {
 public:
-    camera();
+    Camera();
 };
 
 #endif // CAMERA_H

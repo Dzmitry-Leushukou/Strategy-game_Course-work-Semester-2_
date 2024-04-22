@@ -2,6 +2,7 @@
 #define BLOCK_H
 
 #include <QRectF>
+#pragma once
 
 class Block
 {
