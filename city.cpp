@@ -16,3 +16,13 @@ void city::change_owner(short owner)
 {
     this->owner=owner;
 }
+
+bool city::getIs_city() const
+{
+    return is_city;
+}
+
+short city::getOwner() const
+{
+    return owner;
+}
