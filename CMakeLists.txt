@@ -24,11 +24,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         background_menu.qrc
-        game.h game.cpp game.ui
+
         camera.h camera.cpp
         world.h world.cpp
         aabb.h aabb.cpp
         block.h block.cpp
+        view.h view.cpp
+        gamewindow.h gamewindow.cpp gamewindow.ui
 
 
 
