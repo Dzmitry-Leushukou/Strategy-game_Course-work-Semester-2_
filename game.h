@@ -3,7 +3,7 @@
 
 #include <QGraphicsView>
 //#include <QGraphicsScene >
-#include "map.h"
+#include "world.h"
 
 #pragma once
 
@@ -19,7 +19,7 @@ public:
 
     //Attributes
     QGraphicsScene* scene;
-    Map* map;
+    World* map;
     short int whosTurn;
 
 private:

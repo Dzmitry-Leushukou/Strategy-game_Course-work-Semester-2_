@@ -17,6 +17,6 @@ Game::Game(QWidget *parent)
 
 void Game::start()
 {
-    map = new Map(scene);
+    map = new World(scene);
     map->placeBlocks();
 }

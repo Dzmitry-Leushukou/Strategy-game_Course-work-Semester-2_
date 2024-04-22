@@ -8,7 +8,7 @@ class Block : public QGraphicsPixmapItem
 {
 public:
     //Constructors
-    Block(QGraphicsItem* parent=NULL);
+    Block(short,short, QGraphicsItem* parent=NULL);
 
     //Methods
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -24,8 +24,8 @@ public:
 private:
     short int owner;
     short int building;
-    short int type;
-    short int subtype;
+    short int id;
+    short int resource;//0 - nothing 1 - wheat 2 - stone 3 - steal 4 - fish
 };
 
 #endif // BLOCK_H

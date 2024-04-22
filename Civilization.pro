@@ -13,16 +13,18 @@ CONFIG += c++17
 
 SOURCES += \
     block.cpp \
+    city.cpp \
     game.cpp \
     main.cpp \
     mainwindow.cpp \
-    map.cpp
+    world.cpp
 
 HEADERS += \
     block.h \
+    city.h \
     game.h \
     mainwindow.h \
-    map.h
+    world.h
 
 FORMS += \
     mainwindow.ui
