@@ -13,6 +13,7 @@ private:
     QGraphicsScene *scene;
     bool ** used;
     std::pair<int,int>** map;
+    QGraphicsPolygonItem * select;
 };
 
 #endif // PLAYER_H

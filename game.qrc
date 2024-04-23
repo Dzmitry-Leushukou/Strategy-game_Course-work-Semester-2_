@@ -11,5 +11,7 @@
         <file>resource/mountain_stone.png</file>
         <file>resource/water_fish.png</file>
         <file>resource/settler.png</file>
+        <file>resource/builder.png</file>
+        <file>resource/knight2.png</file>
     </qresource>
 </RCC>

@@ -1,9 +1,10 @@
 #include "unit.h"
 
-Unit::Unit(QGraphicsScene*& scene, bool ** used,  std::pair<int,int>** map) {
+Unit::Unit(QGraphicsScene*& scene, bool ** used,  std::pair<int,int>** map, QGraphicsPolygonItem * select) {
     this->scene=scene;
     this->used=used;
     this->map=map;
+    this->select=select;
     qDebug()<<"unit:"<<scene;
 }
 
@@ -17,7 +18,7 @@ void Unit::Spawn(int id)
         x1=gen()%(1440/32);
         y1=gen()%(896/32);
     }while(used[x1][y1]||map[x1][y1].first==0);
-    setPos(x1*32+6,y1*32+6);
+    setPos(x1*32+11/2,y1*32+11/2);
     drawUnit();
 }
 
@@ -74,8 +75,15 @@ void Unit::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if(event->buttons() & Qt::LeftButton)
     {
-        //selectBlock();
+        select->setPos(x(),y());
         qDebug()<<"L";
+        //add_log("Left Button clicked");
+
+    }
+    if(event->buttons() & Qt::RightButton)
+    {
+        select->setPos(-32,-32);
+        //qDebug()<<"L";
         //add_log("Left Button clicked");
 
     }
