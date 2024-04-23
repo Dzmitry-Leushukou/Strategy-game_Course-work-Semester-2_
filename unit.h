@@ -3,15 +3,18 @@
 #include <QGraphicsPixmapItem>
 #include <ctime>
 #include <random>
+#include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
 
 class Unit : public QGraphicsPixmapItem
 {
 public:
-    Unit(QGraphicsScene*, bool**, std::pair<int,int>** map);
+    Unit(QGraphicsScene*&, bool**, std::pair<int,int>** map);
     void Spawn(int);
     void Spawn(int,int x,int y);
     void drawUnit();
     void SetAttributes();
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
 private:
     int id;
     int attack;

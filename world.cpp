@@ -8,6 +8,7 @@
 World::World(QGraphicsScene* &scene, QWidget* w)
 {
     this->scene=scene;
+    qDebug()<<scene;
     widget=w;
     gen.seed(time(0));
 
@@ -50,17 +51,19 @@ short World::generate_block()
 {
 
     short g=gen()%8;
-    qDebug()<<"Gen:"<<g;
+    //qDebug()<<"Gen:"<<g;
     if(g<1)
     {
         return 0;
     }
     g=gen()%10;
-    qDebug()<<"Gen:"<<g;
+    //qDebug()<<"Gen:"<<g;
     if(g>0)
         return 1;
     return 2;
 }
+
+
 
 short World::gen_res(short id)
 {

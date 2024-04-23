@@ -19,6 +19,7 @@ Game::Game(QWidget *parent)
     add_log("Map was generated");
 
     player=new Player(scene,map->getUnitstay(), map->getMap());
+
 }
 
 void Game::StartGame()
