@@ -14,9 +14,10 @@ World::World(QGraphicsScene* &scene, QWidget* w)
     QPolygonF p({{0,0},{32,0},{32,32},{0,32}});
     select=new QGraphicsPolygonItem(p);
     select->setPen(QPen(QColor("yellow")));
-    scene->addItem(select);
+
     placeBlocks();
 
+    scene->addItem(select);
     select->setPos(-32,-32);
 }
 

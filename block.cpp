@@ -14,25 +14,25 @@ Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGra
         if(res==0)
             setPixmap(QPixmap(":game/resource/water.png"));
         if(res==4)
-            setPixmap(QPixmap(":game/resource/water_with_fish.png"));
+            setPixmap(QPixmap(":game/resource/water_fish.png"));
             break;
         case 1:
             if(res==0)
             setPixmap(QPixmap(":game/resource/grass.png"));
             if(res==1)
-                setPixmap(QPixmap(":game/resource/grass_with_wheat.png"));
+                setPixmap(QPixmap(":game/resource/grass_wheat.png"));
             if(res==2)
-                setPixmap(QPixmap(":game/resource/grass_with_stone.png"));
+                setPixmap(QPixmap(":game/resource/grass_stone.png"));
             if(res==3)
-                setPixmap(QPixmap(":game/resource/grass_with_steel.png"));
+                setPixmap(QPixmap(":game/resource/grass_iron.png"));
             break;
         default:
             if(res==0)
             setPixmap(QPixmap(":game/resource/mountain.png"));
             if(res==2)
-                setPixmap(QPixmap(":game/resource/mountain_with_stone.png"));
+                setPixmap(QPixmap(":game/resource/mountain_stone.png"));
             if(res==3)
-                setPixmap(QPixmap(":game/resource/mountain_with_steel.png"));
+                setPixmap(QPixmap(":game/resource/mountain_iron.png"));
             break;
     }
 
@@ -108,7 +108,7 @@ std::string Block::get_square_info()
         res+="Stone";
         break;
     case 3:
-        res+="Steal";
+        res+="Iron";
         break;
     }
 

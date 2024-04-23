@@ -9,7 +9,7 @@ Game::Game(QWidget *parent)
     //set up the scene
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,1440,896);
-    setFixedSize(1440,896);
+    setFixedSize(1442,898);
     setScene(scene);
 
     add_log("Game scene was created");

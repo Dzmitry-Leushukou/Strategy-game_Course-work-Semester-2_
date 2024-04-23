@@ -4,5 +4,11 @@
         <file>resource/water.png</file>
         <file>resource/grass.png</file>
         <file>resource/mountain.png</file>
+        <file>resource/grass_iron.png</file>
+        <file>resource/grass_stone.png</file>
+        <file>resource/grass_wheat.png</file>
+        <file>resource/mountain_iron.png</file>
+        <file>resource/mountain_stone.png</file>
+        <file>resource/water_fish.png</file>
     </qresource>
 </RCC>
