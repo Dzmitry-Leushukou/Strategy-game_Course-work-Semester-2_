@@ -23,6 +23,8 @@ public:
     //getters
     QList<Block*>getBlocks();
     Block* getBlock(int,int);
+    bool** getUnitstay();
+    std::pair<int,int> **getMap();
     //setters
 
 private:
@@ -33,6 +35,8 @@ private:
     QWidget *widget;
     std::mt19937 gen;
     QGraphicsPolygonItem * select;
+    bool **unitstay;
+    std::pair<int,int> **map;
 };
 
 #endif // WORLD_H

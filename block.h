@@ -13,7 +13,7 @@ class Block : public QGraphicsPixmapItem
 {
 public:
     //Constructors
-    Block(short,short,  QWidget*, QGraphicsScene*&,QGraphicsPolygonItem *,QGraphicsItem* parent=NULL);
+    Block(short,short,  QWidget*, QGraphicsScene*,QGraphicsPolygonItem *,QGraphicsItem* parent=NULL);
 
     //Methods
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

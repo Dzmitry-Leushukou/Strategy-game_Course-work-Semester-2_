@@ -23,16 +23,20 @@ World::World(QGraphicsScene* &scene, QWidget* w)
 
 void World::placeBlocks()
 {
-
+    unitstay=new bool*[1440/32];
+    map = new std::pair<int,int>*[1440/32];
     for(int i=0;i<1440/32;i++)
     {
+        unitstay[i]=new bool[896/32];
+        map[i]=new std::pair<int,int>[896/32];
         for(int j=0;j<896/32;j++)
-        {                
+        {
+            unitstay[i][j]=false;
             short id=generate_block(),res=gen_res(id);
             if(i==0||i==1440/32-1||j==0||j==896/32-1)
                 id=0,res=gen_res(id);
-            qDebug()<<id;
-
+            //qDebug()<<id;
+            map[i][j]={id,res};
             Block* block=new Block(id,res, widget,scene,select);
             //qDebug()<<select;
             block->setPos(32*i,32*j);
@@ -107,4 +111,14 @@ Block *World::getBlock(int x, int y)
     y/=32;
     int ind=y+(x-1)*(896/32);
     return blocks[ind];
+}
+
+bool** World::getUnitstay()
+{
+    return unitstay;
+}
+
+std::pair<int, int> **World::getMap()
+{
+    return map;
 }

@@ -26,6 +26,8 @@ private:
     QGraphicsScene* scene;
     World* map;
     void StartGame();
+    Player *player;
+
 };
 
 #endif // GAME_H

@@ -1,6 +1,6 @@
 #include "block.h"
 
-Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
+Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *scene,QGraphicsPolygonItem *select, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
     this->select=select;
 

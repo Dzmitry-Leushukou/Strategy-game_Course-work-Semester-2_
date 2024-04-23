@@ -17,11 +17,12 @@ Game::Game(QWidget *parent)
     map = new World(scene,this);
 
     add_log("Map was generated");
+
+    player=new Player(scene,map->getUnitstay(), map->getMap());
 }
 
 void Game::StartGame()
 {
-    //Player.spawn();
     //for(int i=0;i<3;i++)
     //Enemy[i].spawn();
 }

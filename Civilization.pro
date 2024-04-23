@@ -14,6 +14,7 @@ CONFIG += c++17
 SOURCES += \
     block.cpp \
     city.cpp \
+    enemy.cpp \
     game.cpp \
     log.cpp \
     main.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
 HEADERS += \
     block.h \
     city.h \
+    enemy.h \
     game.h \
     log.h \
     mainwindow.h \
