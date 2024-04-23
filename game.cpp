@@ -18,8 +18,8 @@ Game::Game(QWidget *parent)
 
 void Game::start()
 {
-    map = new World(scene);
-    map->placeBlocks();
+    map = new World(scene,this);
+    //map->placeBlocks();
 
     add_log("Map was generated");
 }

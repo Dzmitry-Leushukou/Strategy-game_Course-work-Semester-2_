@@ -1,7 +1,11 @@
 #include "block.h"
 
-Block::Block(short int id, short int res, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
+Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
+    this->select=select;
+
+    this->scene=scene;
+    widget=w;
     this->id=id;
     resource=res;
     switch(id)
@@ -37,8 +41,91 @@ Block::Block(short int id, short int res, QGraphicsItem *parent):QGraphicsPixmap
 
 void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug()<<"MousePressEvent:"<<owner;
-    qDebug()<<this->pos().x()<<" "<<this->pos().y();
+    //qDebug()<<pos().x()<<" "<<pos().y()<<" | "<<id<<" "<<resource;
+
+    if(event->buttons() & Qt::LeftButton)
+    {
+        selectBlock();
+        //qDebug()<<"L";
+        add_log("Left Button clicked");
+
+    }
+    if(event->buttons() & Qt::RightButton)
+    {
+
+        //City check NEED
+        //qDebug()<<"R";
+        selectBlock();
+        add_log("Right Button clicked");
+        getInfo();
+
+    }
+}
+
+void Block::getInfo()
+{
+   QMessageBox::about(widget,"Square info", QString::fromStdString(get_square_info()));
+
+}
+
+void Block::selectBlock()
+{
+    select->setPos(x(),y());
+}
+
+std::string Block::get_square_info()
+{
+    std::string res;
+
+    res+="Type: ";
+    switch (id)
+    {
+    case 0:
+        res+="Water";
+        break;
+
+    case 1:
+        res+="Grass";
+        break;
+
+    case 2:
+        res+="Mountain";
+        break;
+    }
+
+    res+="\n";
+
+    res+="Resource: ";
+    switch(this->resource)
+    {
+    case 0:
+        res+="None";
+        break;
+    case 1:
+        res+="Wheat";
+        break;
+    case 2:
+        res+="Stone";
+        break;
+    case 3:
+        res+="Steal";
+        break;
+    }
+
+    res+="\n";
+
+    res+="Owner: Player ";
+    if(owner==-1)
+        res+="Neutral";
+    else
+    {
+        res+=std::to_string(owner);
+        if(owner==0)
+            res+=" (You)";
+    }
+    res+="\n";
+
+    return res;
 }
 
 void Block::setOwner(short newOwner)

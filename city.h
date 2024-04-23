@@ -13,9 +13,11 @@ public:
     bool getIs_city() const;
     short getOwner() const;
 
+    //void build();
 private:
     bool is_city;
     short owner;
+
 };
 
 #endif // CITY_H

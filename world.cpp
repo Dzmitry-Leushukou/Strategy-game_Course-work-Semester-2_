@@ -5,10 +5,19 @@
 
 
 
-World::World(QGraphicsScene* &scene)
+World::World(QGraphicsScene* &scene, QWidget* w)
 {
     this->scene=scene;
+    widget=w;
     gen.seed(time(0));
+
+    QPolygonF p({{0,0},{32,0},{32,32},{0,32}});
+    select=new QGraphicsPolygonItem(p);
+    select->setPen(QPen(QColor("yellow")));
+    scene->addItem(select);
+    placeBlocks();
+
+    select->setPos(-32,-32);
 }
 
 void World::placeBlocks()
@@ -21,9 +30,10 @@ void World::placeBlocks()
             short id=generate_block(),res=gen_res(id);
             qDebug()<<id;
 
-            Block* block=new Block(id,res);
+            Block* block=new Block(id,res, widget,scene,select);
+            //qDebug()<<select;
             block->setPos(32*i,32*j);
-            blocks.append(block);
+            blocks.push_back(block);
             scene->addItem(block);
         }
     }

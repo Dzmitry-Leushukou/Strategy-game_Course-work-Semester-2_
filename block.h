@@ -1,21 +1,26 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include<QGraphicsPixmapItem>
-#include<QDebug>
-#include "log.h"
+#include <QGraphicsPixmapItem>
+#include <QDebug>
+#include <QMessageBox>
+#include <QGraphicsSceneMouseEvent>
+#include <QGraphicsScene>
+#include <QGraphicsPolygonItem>
 
+#include "log.h"
 class Block : public QGraphicsPixmapItem
 {
 public:
     //Constructors
-    Block(short,short, QGraphicsItem* parent=NULL);
+    Block(short,short,  QWidget*, QGraphicsScene*&,QGraphicsPolygonItem *,QGraphicsItem* parent=NULL);
 
     //Methods
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-
+    void getInfo();
+    void selectBlock();
     //getters
-
+    std::string get_square_info();
 
     //setters
 
@@ -23,6 +28,9 @@ public:
     void setOwner(short newOwner);
 
 private:
+    QWidget *widget;
+    QGraphicsScene *scene;
+    QGraphicsPolygonItem *select;
     short int owner;
     short int building;
     short int id;
