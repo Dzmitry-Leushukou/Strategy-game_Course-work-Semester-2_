@@ -2,10 +2,10 @@
 #define GAME_H
 
 #include <QGraphicsView>
-//#include <QGraphicsScene >
 #include "world.h"
 #include "log.h"
-
+#include "player.h"
+// #include "enemy.h"
 #pragma once
 
 //class View;
@@ -16,15 +16,16 @@ public:
     Game(QWidget* parent=NULL);
 
     //Methods
-    void start();
+
 
     //Attributes
-    QGraphicsScene* scene;
-    World* map;
+
     short int whosTurn;
 
 private:
-
+    QGraphicsScene* scene;
+    World* map;
+    void StartGame();
 };
 
 #endif // GAME_H

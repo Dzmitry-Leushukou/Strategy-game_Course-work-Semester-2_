@@ -28,7 +28,7 @@ void MainWindow::on_PlayButton_clicked()
     game=new Game();
     game->show();
     //gamewindow->show();
-    game->start();
+    //game->start();
     add_log("Game start...");
 
 }

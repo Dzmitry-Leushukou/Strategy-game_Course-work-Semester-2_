@@ -18,6 +18,8 @@ SOURCES += \
     log.cpp \
     main.cpp \
     mainwindow.cpp \
+    player.cpp \
+    unit.cpp \
     world.cpp
 
 HEADERS += \
@@ -26,6 +28,8 @@ HEADERS += \
     game.h \
     log.h \
     mainwindow.h \
+    player.h \
+    unit.h \
     world.h
 
 FORMS += \

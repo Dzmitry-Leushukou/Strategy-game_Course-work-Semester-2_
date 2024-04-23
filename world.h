@@ -22,7 +22,7 @@ public:
     short gen_res(short);
     //getters
     QList<Block*>getBlocks();
-
+    Block* getBlock(int,int);
     //setters
 
 private:

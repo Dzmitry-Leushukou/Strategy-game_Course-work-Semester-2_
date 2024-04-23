@@ -17,7 +17,7 @@ public:
 private:
     bool is_city;
     short owner;
-
+    int id;
 };
 
 #endif // CITY_H

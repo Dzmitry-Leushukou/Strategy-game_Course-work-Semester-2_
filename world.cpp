@@ -27,8 +27,10 @@ void World::placeBlocks()
     for(int i=0;i<1440/32;i++)
     {
         for(int j=0;j<896/32;j++)
-        {
+        {                
             short id=generate_block(),res=gen_res(id);
+            if(i==0||i==1440/32-1||j==0||j==896/32-1)
+                id=0,res=gen_res(id);
             qDebug()<<id;
 
             Block* block=new Block(id,res, widget,scene,select);
@@ -97,4 +99,12 @@ short World::gen_res(short id)
 QList<Block *> World::getBlocks()
 {
     return blocks;
+}
+
+Block *World::getBlock(int x, int y)
+{
+    x/=32;
+    y/=32;
+    int ind=y+(x-1)*(896/32);
+    return blocks[ind];
 }
