@@ -15,6 +15,7 @@ SOURCES += \
     block.cpp \
     city.cpp \
     game.cpp \
+    log.cpp \
     main.cpp \
     mainwindow.cpp \
     world.cpp
@@ -23,6 +24,7 @@ HEADERS += \
     block.h \
     city.h \
     game.h \
+    log.h \
     mainwindow.h \
     world.h
 

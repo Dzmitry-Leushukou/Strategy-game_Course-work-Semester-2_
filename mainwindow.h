@@ -6,6 +6,7 @@
 //#include "gamewindow.h"
 #include "game.h"
 
+
 #pragma once
 
 QT_BEGIN_NAMESPACE
@@ -21,6 +22,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    void log(std::string s);
 
 private slots:
     void on_PlayButton_clicked();

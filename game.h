@@ -4,6 +4,7 @@
 #include <QGraphicsView>
 //#include <QGraphicsScene >
 #include "world.h"
+#include "log.h"
 
 #pragma once
 

@@ -3,6 +3,7 @@
 
 #include<QGraphicsPixmapItem>
 #include<QDebug>
+#include "log.h"
 
 class Block : public QGraphicsPixmapItem
 {

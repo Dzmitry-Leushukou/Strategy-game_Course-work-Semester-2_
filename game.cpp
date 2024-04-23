@@ -12,6 +12,7 @@ Game::Game(QWidget *parent)
     setFixedSize(1440,896);
     setScene(scene);
 
+    add_log("Game scene was created");
 
 }
 
@@ -19,4 +20,6 @@ void Game::start()
 {
     map = new World(scene);
     map->placeBlocks();
+
+    add_log("Map was generated");
 }
