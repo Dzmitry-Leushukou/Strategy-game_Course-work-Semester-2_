@@ -5,7 +5,7 @@
 class Player
 {
 public:
-    Player(QGraphicsScene *&scene, bool ** used,  std::pair<int,int>** map);
+    Player(QGraphicsScene *&scene, bool ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *select);
     QList<Unit *> getUnits() const;
 
 private:

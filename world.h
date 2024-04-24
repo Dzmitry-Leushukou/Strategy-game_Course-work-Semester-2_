@@ -15,7 +15,7 @@ class World
 {
 public:
     //Constructors
-    World(QGraphicsScene*&, QWidget*);
+    World(QGraphicsScene*&, QWidget*,QGraphicsPolygonItem*);
 
     //Methods
     void placeBlocks();

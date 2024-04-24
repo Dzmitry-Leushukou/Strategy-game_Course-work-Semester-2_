@@ -5,22 +5,18 @@
 
 
 
-World::World(QGraphicsScene* &scene, QWidget* w)
+World::World(QGraphicsScene* &scene, QWidget* w, QGraphicsPolygonItem * select)
 {
     this->scene=scene;
+    this->select=select;
     qDebug()<<scene;
     widget=w;
     gen.seed(time(0));
-
-    QPolygonF p({{0,0},{32,0},{32,32},{0,32}});
-    select=new QGraphicsPolygonItem(p);
-    select->setPen(QPen(QColor("yellow")));
 
     placeBlocks();
     normalise_world();
 
     scene->addItem(select);
-    select->setPos(-32,-32);
 
     contenent_distribution();
 }

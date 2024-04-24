@@ -24,6 +24,8 @@ public:
 
 private:
     QGraphicsScene* scene;
+    QGraphicsPolygonItem* select_block;
+    QGraphicsPolygonItem* select_unit;
     World* map;
     void StartGame();
     Player *player;
