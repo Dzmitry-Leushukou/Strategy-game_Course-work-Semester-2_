@@ -24,19 +24,21 @@ public:
 
     //getters
     std::string get_square_info();
+    short getHeight() const;
 
     //setters
-
+    void setContinent(std::string newContinent);
 
     void setOwner(short newOwner);
 
-    short getHeight() const;
+
 
 private:
     QWidget *widget;
     QGraphicsScene *scene;
     QGraphicsPolygonItem *select;
 
+    std::string continent="";
     short int height;
     short int owner;
     short int building;

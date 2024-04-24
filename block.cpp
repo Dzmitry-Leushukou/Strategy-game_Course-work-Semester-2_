@@ -130,6 +130,16 @@ std::string Block::get_square_info()
     }
     res+="\n";
 
+    switch (id)
+    {
+    case 1:
+        res+="Continent: "+continent;
+        break;
+
+    case 2:
+        res+="Continent: "+continent;
+        break;
+    }
     return res;
 }
 
@@ -141,4 +151,9 @@ void Block::setOwner(short newOwner)
 short Block::getHeight() const
 {
     return height;
+}
+
+void Block::setContinent(std::string newContinent)
+{
+    continent = newContinent;
 }

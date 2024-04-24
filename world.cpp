@@ -21,6 +21,8 @@ World::World(QGraphicsScene* &scene, QWidget* w)
 
     scene->addItem(select);
     select->setPos(-32,-32);
+
+    contenent_distribution();
 }
 
 void World::placeBlocks()
@@ -74,8 +76,6 @@ short World::generate_block()
         return 1;
     return 2;
 }
-
-
 
 short World::gen_res(short id)
 {
@@ -155,6 +155,81 @@ void World::normalise_world()
         }
     add_log("Normalise world ended");
 
+}
+
+void World::contenent_name_creator()
+{
+    for(int i=0;i<35;i++)
+        for(int j=i,n=35;n!=0;n--,j++)
+        {
+            contenent_name[i*35+35-n]=s1[j]+s2[i];
+        }
+}
+
+void World::contenent_distribution()
+{
+    contenent_name_creator();
+
+    bool **used=new bool*[1440/32];
+    for(int i=0;i<1440/32;i++)
+    {
+
+        used[i]=new bool[896/32];
+        for(int j=0;j<896/32;j++)
+        {
+
+            used[i][j]=false;
+        }
+
+    }
+
+    int num=-1;
+    for(int i=1;i<1440/32;i++)
+    {
+        for(int j=1;j<896/32;j++)
+        {
+            if(!used[i][j]&&map[i][j].first!=0)
+            {
+                num++;
+                std::queue<std::pair<int,int>>q;
+                q.push({i,j});
+                used[i][j]=true;
+                while(!q.empty())
+                {
+                    std::pair<int,int>pos=q.front();
+                    q.pop();
+
+                    getBlock(pos.first*32,pos.second*32)->setContinent(contenent_name[num]);
+                    if(map[pos.first-1][pos.second].first>0&&used[pos.first-1][pos.second])
+                    {
+                        used[pos.first-1][pos.second]=true;
+                        q.push({pos.first-1,pos.second});
+                    }
+                    if(map[pos.first+1][pos.second].first>0&&!used[pos.first+1][pos.second])
+                    {
+                        used[pos.first+1][pos.second]=true;
+                        q.push({pos.first+1,pos.second});
+                    }
+                    if(map[pos.first][pos.second+1].first>0&&!used[pos.first][pos.second+1])
+                    {
+                        used[pos.first][pos.second+1]=true;
+                        q.push({pos.first,pos.second+1});
+                    }
+                    if(map[pos.first][pos.second-1].first>0&&!used[pos.first][pos.second-1])
+                    {
+                        used[pos.first][pos.second-1]=true;
+                        q.push({pos.first,pos.second-1});
+                    }
+                }
+            }
+        }
+
+    }
+
+    for(int i=0;i<1440/32;i++)
+        delete[] used[i],used[i]=nullptr;
+    delete[] used;
+    used=nullptr;
 }
 
 QList<Block *> World::getBlocks()
