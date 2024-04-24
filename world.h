@@ -8,6 +8,7 @@
 #include <random>
 #include <QWidget>
 #include "city.h"
+#include <queue>
 
 
 class World
@@ -20,12 +21,16 @@ public:
     void placeBlocks();
     short generate_block();
     short gen_res(short);
-    //getters
+    void normalise_world();
+
+    //Getters
     QList<Block*>getBlocks();
     Block* getBlock(int,int);
     bool** getUnitstay();
     std::pair<int,int> **getMap();
-    //setters
+
+    //Setters
+
 
 private:
     void createBlockColumn(int x,int y, int numOfRows);
@@ -36,6 +41,7 @@ private:
     std::mt19937 gen;
     QGraphicsPolygonItem * select;
     bool **unitstay;
+    int** height_map;
     std::pair<int,int> **map;
 };
 

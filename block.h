@@ -19,6 +19,9 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void getInfo();
     void selectBlock();
+    void updateTexture();
+    void change(int id);
+
     //getters
     std::string get_square_info();
 
@@ -27,10 +30,14 @@ public:
 
     void setOwner(short newOwner);
 
+    short getHeight() const;
+
 private:
     QWidget *widget;
     QGraphicsScene *scene;
     QGraphicsPolygonItem *select;
+
+    short int height;
     short int owner;
     short int building;
     short int id;

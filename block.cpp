@@ -7,56 +7,22 @@ Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGra
     this->scene=scene;
     widget=w;
     this->id=id;
+    this->height=id;
     resource=res;
-    switch(id)
-    {
-        case 0:
-        if(res==0)
-            setPixmap(QPixmap(":game/resource/water.png"));
-        if(res==4)
-            setPixmap(QPixmap(":game/resource/water_fish.png"));
-            break;
-        case 1:
-            if(res==0)
-            setPixmap(QPixmap(":game/resource/grass.png"));
-            if(res==1)
-                setPixmap(QPixmap(":game/resource/grass_wheat.png"));
-            if(res==2)
-                setPixmap(QPixmap(":game/resource/grass_stone.png"));
-            if(res==3)
-                setPixmap(QPixmap(":game/resource/grass_iron.png"));
-            break;
-        default:
-            if(res==0)
-            setPixmap(QPixmap(":game/resource/mountain.png"));
-            if(res==2)
-                setPixmap(QPixmap(":game/resource/mountain_stone.png"));
-            if(res==3)
-                setPixmap(QPixmap(":game/resource/mountain_iron.png"));
-            break;
-    }
-
+    updateTexture();
     owner=building=-1;
 }
 
 void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    //qDebug()<<pos().x()<<" "<<pos().y()<<" | "<<id<<" "<<resource;
 
     if(event->buttons() & Qt::LeftButton)
     {
         selectBlock();
-        //qDebug()<<"L";
-        add_log("Left Button clicked");
-
     }
     if(event->buttons() & Qt::RightButton)
     {
-
-        //City check NEED
-        //qDebug()<<"R";
         selectBlock();
-        add_log("Right Button clicked");
         getInfo();
 
     }
@@ -64,13 +30,52 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void Block::getInfo()
 {
+   add_log("Get info "+std::to_string(x()/32)+" "+std::to_string(y()/32));
    QMessageBox::about(widget,"Square info", QString::fromStdString(get_square_info()));
 
 }
 
 void Block::selectBlock()
 {
+    add_log("Select block "+std::to_string(x()/32)+" "+std::to_string(y()/32));
     select->setPos(x(),y());
+}
+
+void Block::updateTexture()
+{
+    switch(id)
+    {
+    case 0:
+        if(resource==0)
+            setPixmap(QPixmap(":game/resource/water.png"));
+        if(resource==4)
+            setPixmap(QPixmap(":game/resource/water_fish.png"));
+        break;
+    case 1:
+        if(resource==0)
+            setPixmap(QPixmap(":game/resource/grass.png"));
+        if(resource==1)
+            setPixmap(QPixmap(":game/resource/grass_wheat.png"));
+        if(resource==2)
+            setPixmap(QPixmap(":game/resource/grass_stone.png"));
+        if(resource==3)
+            setPixmap(QPixmap(":game/resource/grass_iron.png"));
+        break;
+    default:
+        if(resource==0)
+            setPixmap(QPixmap(":game/resource/mountain.png"));
+        if(resource==2)
+            setPixmap(QPixmap(":game/resource/mountain_stone.png"));
+        if(resource==3)
+            setPixmap(QPixmap(":game/resource/mountain_iron.png"));
+        break;
+    }
+}
+
+void Block::change(int id)
+{
+    this->id=height=id;
+    updateTexture();
 }
 
 std::string Block::get_square_info()
@@ -131,4 +136,9 @@ std::string Block::get_square_info()
 void Block::setOwner(short newOwner)
 {
     owner = newOwner;
+}
+
+short Block::getHeight() const
+{
+    return height;
 }
