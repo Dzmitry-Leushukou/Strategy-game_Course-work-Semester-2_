@@ -1,8 +1,9 @@
 #include "unit.h"
 
-Unit::Unit(QGraphicsScene*& scene, bool ** used,  std::pair<int,int>** map, QGraphicsPolygonItem * select) {
+Unit::Unit(QGraphicsScene*& scene, bool ** used,  std::pair<int,int>** map, QGraphicsPolygonItem * select,QGraphicsPolygonItem * select_block) {
     this->scene=scene;
     this->used=used;
+    this->select_block=select_block;
     this->map=map;
     this->select=select;
     qDebug()<<"unit:"<<scene;
@@ -77,7 +78,7 @@ void Unit::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
         select->setPos(x(),y());
         qDebug()<<"L";
-        //add_log("Left Button clicked");
+        select_block->setPos(-32,-32);
 
     }
     if(event->buttons() & Qt::RightButton)

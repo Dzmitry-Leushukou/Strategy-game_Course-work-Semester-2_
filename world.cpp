@@ -5,9 +5,10 @@
 
 
 
-World::World(QGraphicsScene* &scene, QWidget* w, QGraphicsPolygonItem * select)
+World::World(QGraphicsScene* &scene, QWidget* w, QGraphicsPolygonItem * select,QGraphicsPolygonItem * select_unit)
 {
     this->scene=scene;
+    this->select_unit=select_unit;
     this->select=select;
     qDebug()<<scene;
     widget=w;
@@ -42,7 +43,7 @@ void World::placeBlocks()
                 id=0,res=gen_res(id);
             map[i][j]={id,res};
 
-            Block* block=new Block(id,res, widget,scene,select);
+            Block* block=new Block(id,res, widget,scene,select,select_unit);
 
             height_map[i][j]=block->getHeight();
 

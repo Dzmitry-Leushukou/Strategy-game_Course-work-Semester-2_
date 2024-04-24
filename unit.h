@@ -9,7 +9,7 @@
 class Unit : public QGraphicsPixmapItem
 {
 public:
-    Unit(QGraphicsScene*&, bool**, std::pair<int,int>** map, QGraphicsPolygonItem *);
+    Unit(QGraphicsScene*&, bool**, std::pair<int,int>** map, QGraphicsPolygonItem *,QGraphicsPolygonItem * );
     void Spawn(int);
     void Spawn(int,int x,int y);
     void drawUnit();
@@ -24,6 +24,7 @@ private:
     bool **used;
     std::pair<int,int> **map;
     QGraphicsPolygonItem * select;
+    QGraphicsPolygonItem * select_block;
 };
 
 #endif // UNIT_H

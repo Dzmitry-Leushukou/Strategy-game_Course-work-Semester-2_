@@ -1,9 +1,9 @@
 #include "block.h"
 
-Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
+Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select,QGraphicsPolygonItem *unit, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
     this->select=select;
-
+    this->unit=unit;
     this->scene=scene;
     widget=w;
     this->id=id;
@@ -19,6 +19,11 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if(event->buttons() & Qt::LeftButton)
     {
         selectBlock();
+
+        if(unit->pos()!=QPointF(-32,-32))
+        {
+            qDebug()<<"Try to move";
+        }
     }
     if(event->buttons() & Qt::RightButton)
     {
