@@ -5,7 +5,7 @@
 #include "world.h"
 #include "log.h"
 #include "player.h"
-// #include "enemy.h"
+#include "enemy.h"
 #pragma once
 
 //class View;
@@ -16,20 +16,21 @@ public:
     Game(QWidget* parent=NULL);
 
     //Methods
-
+    //void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
     //Attributes
 
-    short int whosTurn;
+    //fields
 
 private:
+    long long whosTurn;
     QGraphicsScene* scene;
     QGraphicsPolygonItem* select_block;
     QGraphicsPolygonItem* select_unit;
     World* map;
     void StartGame();
     Player *player;
-
+    QList<Enemy*>enemies;
 };
 
 #endif // GAME_H

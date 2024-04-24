@@ -25,17 +25,25 @@ Game::Game(QWidget *parent)
     select_unit->setPen(QPen(QColor("red")));
     select_unit->setPos(-32,-32);
 
+
     map = new World(scene,this,select_block,select_unit);
+
 
     add_log("Map was generated");
 
-    player=new Player(scene,map->getUnitstay(), map->getMap(),select_unit,select_block);
+
 
 
 }
 
 void Game::StartGame()
 {
-    //for(int i=0;i<3;i++)
-    //Enemy[i].spawn();
+    while(!enemies.empty())
+    {
+        for(whosTurn=0;;whosTurn++)
+        {
+
+        }
+    }
 }
+

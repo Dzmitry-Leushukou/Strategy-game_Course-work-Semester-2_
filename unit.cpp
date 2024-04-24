@@ -1,12 +1,12 @@
 #include "unit.h"
 
-Unit::Unit(QGraphicsScene*& scene, bool ** used,  std::pair<int,int>** map, QGraphicsPolygonItem * select,QGraphicsPolygonItem * select_block) {
+Unit::Unit(QGraphicsScene*& scene, bool ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *& select,QGraphicsPolygonItem *& select_block) {
     this->scene=scene;
     this->used=used;
     this->select_block=select_block;
     this->map=map;
     this->select=select;
-    qDebug()<<"unit:"<<scene;
+    //qDebug()<<"unit:"<<scene;
 }
 
 void Unit::Spawn(int id)
@@ -58,16 +58,16 @@ void Unit::SetAttributes()
     switch(id)
     {
     case 0:
-        attack=0,hp=10,actions=3;
+        attack=0,hp=10,actions=3,moves=3;
         break;
     case 1:
-        attack=10,hp=20,actions=-1;
+        attack=10,hp=20,actions=-1,moves=2;
         break;
     case 2:
-        attack=0,hp=20,actions=-1;
+        attack=0,hp=20,actions=-1,moves=2;
         break;
     case 4:
-        attack=0,hp=10,actions=1;
+        attack=0,hp=10,actions=1,moves=2;
         break;
     }
 }
@@ -76,8 +76,9 @@ void Unit::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if(event->buttons() & Qt::LeftButton)
     {
+        //qDebug()<<select;
         select->setPos(x(),y());
-        qDebug()<<"L";
+        //qDebug()<<"L";
         select_block->setPos(-32,-32);
 
     }
@@ -88,4 +89,14 @@ void Unit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         //add_log("Left Button clicked");
 
     }
+}
+
+void Unit::move(int x, int y)
+{
+    setPos(x,y);
+}
+
+void Unit::hide_select()
+{
+    select->setPos(x(),y());
 }

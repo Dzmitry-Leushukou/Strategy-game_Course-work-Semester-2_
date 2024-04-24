@@ -1,10 +1,6 @@
 #include "world.h"
 //#include "game.h"
 
-
-
-
-
 World::World(QGraphicsScene* &scene, QWidget* w, QGraphicsPolygonItem * select,QGraphicsPolygonItem * select_unit)
 {
     this->scene=scene;
@@ -20,6 +16,11 @@ World::World(QGraphicsScene* &scene, QWidget* w, QGraphicsPolygonItem * select,Q
     scene->addItem(select);
 
     contenent_distribution();
+    player=new Player(scene,getUnitstay(), getMap(),select_unit,select);
+    for(auto& i:blocks)
+    {
+        i->setPlayer(player);
+    }
 }
 
 void World::placeBlocks()
@@ -43,7 +44,7 @@ void World::placeBlocks()
                 id=0,res=gen_res(id);
             map[i][j]={id,res};
 
-            Block* block=new Block(id,res, widget,scene,select,select_unit);
+            Block* block=new Block(id,res, widget,scene,select,select_unit, player,height_map);
 
             height_map[i][j]=block->getHeight();
 

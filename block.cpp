@@ -1,7 +1,9 @@
 #include "block.h"
 
-Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select,QGraphicsPolygonItem *unit, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
+Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select,QGraphicsPolygonItem *unit, Player*& pl, int** height_map, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
+    this->height_map=height_map;
+    this->player=pl;
     this->select=select;
     this->unit=unit;
     this->scene=scene;
@@ -15,20 +17,97 @@ Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGra
 
 void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-
     if(event->buttons() & Qt::LeftButton)
     {
         selectBlock();
-
+/*
         if(unit->pos()!=QPointF(-32,-32))
         {
-            qDebug()<<"Try to move";
+            qreal ux=unit->x();
+            qreal uy=unit->y();
+            add_log("Try to move: from "+ std::to_string(ux)+ " " + std::to_string(uy) + " to "+ std::to_string(x())+" "+std::to_string(y()));
+            qDebug()<<("Try to move: from "+ std::to_string(ux)+ " " + std::to_string(uy) + " to "+ std::to_string(x())+" "+std::to_string(y()));
+            //World::build_way(ux,uy,x(),y());
         }
+*/
     }
     if(event->buttons() & Qt::RightButton)
     {
         selectBlock();
-        getInfo();
+        if(unit->pos()!=QPointF(-32,-32))
+        {
+            std::queue<std::pair<int,std::pair<int,int>>> q;
+
+            int **d=new int*[1440/32];
+            std::pair<int,int>** pred=new std::pair<int,int>*[1440/32];
+            for(int i=0;i<1440/32;i++)
+            {
+                d[i]=new int[896/32];
+                pred[i]=new std::pair<int,int>[896/32];
+                for(int j=0;j<896/32;j++)
+                    d[i][j]=1e6,pred[i][j]={0,0};
+            }
+
+            q.push({0,{(int)unit->pos().x()/32,(int)unit->pos().y()/32}});
+            d[(int)unit->pos().x()/32][(int)unit->pos().y()/32]=0;
+
+            std::pair<int,int>p;
+            while(!q.empty())
+            {
+                int w=(-1)*q.front().first;
+                p=q.front().second;
+                q.pop();
+                if(p.first==x()/32&&p.second==y()/32)
+                    break;
+                if (w > d[p.first][p.second])  continue;
+
+                for(int i=-1;i<=1;i++)
+                {
+                    for(int j=-1;j<=1;j++)
+                    {
+                        if((i!=0&&j!=0)||(i==0&&j==0))continue;
+                        int toi=p.first+i,toj=p.second+j;
+                        toi%=1440/32;
+                        toj%=896/32;
+
+                        if(toi<0)
+                            toi+=1440/32;
+                        if(toj<0)
+                            toj+=896/32;
+
+                        int len = abs(height_map[p.first][p.second]-height_map[toi][toj]);
+                        if (d[p.first][p.second] + len < d[toi][toj]) {
+                            d[toi][toj] = d[p.first][p.second] + len;
+                            pred[toi][toj] = {p.first,p.second};
+                            q.push ({-d[toi][toj],{ toi,toj}});
+                        }
+                    }
+
+                }
+            }
+
+            while(!q.empty())
+            q.pop();
+
+            //qDebug()<<"Not find";
+            if(p.first==x()/32&&p.second==y()/32)
+            {
+                qDebug()<<"Find";
+            }else return;
+
+
+            std::pair<int,int>s={(int)unit->pos().x()/32,(int)unit->pos().y()/32},l;
+            while(p!=s)
+            {
+                l=p;
+                p=pred[p.first][p.second];
+            }
+            qDebug()<<"Try to move: "<<player ;
+
+            player->move_unit(unit->pos(),l.first*32+11/2,l.second*32+11/2);
+
+        }else
+            getInfo();
 
     }
 }
@@ -37,7 +116,6 @@ void Block::getInfo()
 {
    add_log("Get info "+std::to_string(x()/32)+" "+std::to_string(y()/32));
    QMessageBox::about(widget,"Square info", QString::fromStdString(get_square_info()));
-
 }
 
 void Block::selectBlock()
@@ -151,6 +229,11 @@ std::string Block::get_square_info()
 void Block::setOwner(short newOwner)
 {
     owner = newOwner;
+}
+
+void Block::setPlayer(Player *newPlayer)
+{
+    player = newPlayer;
 }
 
 short Block::getHeight() const

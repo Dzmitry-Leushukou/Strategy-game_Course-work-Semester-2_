@@ -8,6 +8,7 @@
 #include <random>
 #include <QWidget>
 #include "city.h"
+#include "player.h"
 #include <queue>
 
 
@@ -35,7 +36,8 @@ public:
 
 
 private:
-    void createBlockColumn(int x,int y, int numOfRows);
+
+    Player* player;
     QList<Block*>blocks;
     QList<city*>cities;
     QGraphicsScene *scene;
