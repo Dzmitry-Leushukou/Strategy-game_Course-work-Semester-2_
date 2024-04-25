@@ -20,16 +20,6 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if(event->buttons() & Qt::LeftButton)
     {
         selectBlock();
-/*
-        if(unit->pos()!=QPointF(-32,-32))
-        {
-            qreal ux=unit->x();
-            qreal uy=unit->y();
-            add_log("Try to move: from "+ std::to_string(ux)+ " " + std::to_string(uy) + " to "+ std::to_string(x())+" "+std::to_string(y()));
-            qDebug()<<("Try to move: from "+ std::to_string(ux)+ " " + std::to_string(uy) + " to "+ std::to_string(x())+" "+std::to_string(y()));
-            //World::build_way(ux,uy,x(),y());
-        }
-*/
     }
     if(event->buttons() & Qt::RightButton)
     {
@@ -48,6 +38,10 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
                     d[i][j]=1e6,pred[i][j]={0,0};
             }
 
+
+            if((int)unit->pos().x()/32==x()/32&&(int)unit->pos().y()/32==y()/32)//Already stay in pos
+                return;
+
             q.push({0,{(int)unit->pos().x()/32,(int)unit->pos().y()/32}});
             d[(int)unit->pos().x()/32][(int)unit->pos().y()/32]=0;
 
@@ -57,6 +51,7 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 int w=(-1)*q.front().first;
                 p=q.front().second;
                 q.pop();
+                qDebug()<<p<<" "<<x()/32<<" "<<y()/32;
                 if(p.first==x()/32&&p.second==y()/32)
                     break;
                 if (w > d[p.first][p.second])  continue;

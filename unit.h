@@ -22,7 +22,7 @@ private:
     int attack;
     int hp;
     int actions;
-    int moves;
+    //int moves;
     QGraphicsScene* scene;
     bool **used;
     std::pair<int,int> **map;

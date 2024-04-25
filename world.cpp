@@ -198,7 +198,7 @@ void World::contenent_distribution()
                     q.pop();
 
                     getBlock(pos.first*32,pos.second*32)->setContinent(contenent_name[num]);
-                    if(map[pos.first-1][pos.second].first>0&&used[pos.first-1][pos.second])
+                    if(map[pos.first-1][pos.second].first>0&&!used[pos.first-1][pos.second])
                     {
                         used[pos.first-1][pos.second]=true;
                         q.push({pos.first-1,pos.second});

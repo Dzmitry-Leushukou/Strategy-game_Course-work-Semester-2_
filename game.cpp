@@ -38,12 +38,12 @@ Game::Game(QWidget *parent)
 
 void Game::StartGame()
 {
-    while(!enemies.empty())
-    {
+    //while(!enemies.empty())
+
         for(whosTurn=0;;whosTurn++)
         {
 
         }
-    }
+
 }
 

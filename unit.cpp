@@ -58,16 +58,16 @@ void Unit::SetAttributes()
     switch(id)
     {
     case 0:
-        attack=0,hp=10,actions=3,moves=3;
+        attack=0,hp=10,actions=3;
         break;
     case 1:
-        attack=10,hp=20,actions=-1,moves=2;
+        attack=10,hp=20,actions=-1;
         break;
     case 2:
-        attack=0,hp=20,actions=-1,moves=2;
+        attack=0,hp=20,actions=-1;
         break;
     case 4:
-        attack=0,hp=10,actions=1,moves=2;
+        attack=0,hp=10,actions=1;
         break;
     }
 }
