@@ -16,21 +16,22 @@ public:
     Game(QWidget* parent=NULL);
 
     //Methods
-    //void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void StartGame();
 
     //Attributes
 
     //fields
 
 private:
-    long long whosTurn;
     QGraphicsScene* scene;
     QGraphicsPolygonItem* select_block;
     QGraphicsPolygonItem* select_unit;
+
     World* map;
-    void StartGame();
     Player *player;
     QList<Enemy*>enemies;
+
+    long long whosTurn;
 };
 
 #endif // GAME_H

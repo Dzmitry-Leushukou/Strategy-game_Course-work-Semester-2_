@@ -17,11 +17,16 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void move(int x, int y);
     void hide_select();
+    bool getMoves() const;
+
+    void setMoves(bool newMoves);
+
 private:
     int id;
     int attack;
     int hp;
     int actions;
+    bool moves;
     //int moves;
     QGraphicsScene* scene;
     bool **used;

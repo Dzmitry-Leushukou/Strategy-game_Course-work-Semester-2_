@@ -99,8 +99,11 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
             }
             qDebug()<<"Try to move: "<<player ;
 
-            player->move_unit(unit->pos(),l.first*32+11/2,l.second*32+11/2);
-
+            if(!player->move_unit(unit->pos(),l.first*32+11/2,l.second*32+11/2))
+            {
+                //unit_error->setPos(1440/2-50,3);
+                QMessageBox::warning(widget,"Error","This unit have no steps on this turn");
+            }
         }else
             getInfo();
 
@@ -230,6 +233,12 @@ void Block::setPlayer(Player *newPlayer)
 {
     player = newPlayer;
 }
+
+void Block::setUnit_error(QGraphicsTextItem *newUnit_error)
+{
+    unit_error = newUnit_error;
+}
+
 
 short Block::getHeight() const
 {

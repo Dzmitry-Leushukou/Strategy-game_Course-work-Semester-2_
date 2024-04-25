@@ -9,11 +9,15 @@
 #include <QGraphicsPolygonItem>
 #include <queue>
 #include <stack>
+#include <QTimer>
+#include <QObject>
+#include <QMainWindow>
 
 #include "log.h"
 #include "player.h"
 class Block : public QGraphicsPixmapItem
 {
+    //Q_OBJECT
 public:
     //Constructors
     Block(short,short,  QWidget*, QGraphicsScene*&,QGraphicsPolygonItem *,QGraphicsPolygonItem *, Player*& pl,int** height_map,QGraphicsItem* parent=NULL);
@@ -31,19 +35,20 @@ public:
 
     //setters
     void setContinent(std::string newContinent);
-
     void setOwner(short newOwner);
-
-
-
-    //void Block::mousePressEvent(QGraphicsSceneMouseEvent *event);
     void setPlayer(Player *newPlayer);
+    void setUnit_error(QGraphicsTextItem *newUnit_error);
 
+public slots:
+    void HideError();
+    void ShowError();
 private:
     QWidget *widget;
     QGraphicsScene *scene;
     QGraphicsPolygonItem *select;
     QGraphicsPolygonItem *unit;
+    QGraphicsTextItem * unit_error;
+
 
     Player* player;
 

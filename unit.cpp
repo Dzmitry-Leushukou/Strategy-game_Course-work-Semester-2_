@@ -6,6 +6,7 @@ Unit::Unit(QGraphicsScene*& scene, bool ** used,  std::pair<int,int>** map, QGra
     this->select_block=select_block;
     this->map=map;
     this->select=select;
+    moves=false;
     //qDebug()<<"unit:"<<scene;
 }
 
@@ -99,4 +100,14 @@ void Unit::move(int x, int y)
 void Unit::hide_select()
 {
     select->setPos(x(),y());
+}
+
+bool Unit::getMoves() const
+{
+    return moves;
+}
+
+void Unit::setMoves(bool newMoves)
+{
+    moves = newMoves;
 }

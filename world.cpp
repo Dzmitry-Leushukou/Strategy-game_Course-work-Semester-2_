@@ -16,11 +16,25 @@ World::World(QGraphicsScene* &scene, QWidget* w, QGraphicsPolygonItem * select,Q
     scene->addItem(select);
 
     contenent_distribution();
+
     player=new Player(scene,getUnitstay(), getMap(),select_unit,select);
+/*
+    unit_error=new QGraphicsTextItem("Units have no steps left");
+    QFont f;
+    f.setBold(true);
+    f.setPixelSize(16);
+    //unit_error->setFont(f);
+    unit_error->setPos(-32,-32);
+    unit_error->setDefaultTextColor(Qt::red);
+    scene->addItem(unit_error);
+*/
     for(auto& i:blocks)
     {
         i->setPlayer(player);
+       // i->setUnit_error(unit_error);
     }
+
+
 }
 
 void World::placeBlocks()

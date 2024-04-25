@@ -12,6 +12,9 @@ Player::Player(QGraphicsScene *&scene, bool ** used,  std::pair<int,int>** map, 
     //qDebug()<<units.size();
     scene->addItem(u);
     scene->addItem(select);
+
+
+
     qDebug()<<select;
     //qDebug()<<u->pos();
 }
@@ -21,7 +24,7 @@ QList<Unit *> Player::getUnits() const
     return units;
 }
 
-void Player::move_unit(QPointF pos, int x1, int y1)
+bool Player::move_unit(QPointF pos, int x1, int y1)
 {
     //qDebug()<<"Doshli";
     //qDebug()<<x<<" "<<y;
@@ -39,10 +42,11 @@ void Player::move_unit(QPointF pos, int x1, int y1)
             qDebug()<<units[i]->pos();
             //units[i]->move(x1,y1);
 
-
+            if(units[i]->getMoves())return false;
+            units[i]->setMoves(true);
             units[i]->setPos(x1,y1);
             units[i]->hide_select();
-            return;
+            return true;
         }
     }
 }
