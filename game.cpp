@@ -8,8 +8,8 @@ Game::Game(QWidget *parent)
 
     //set up the scene
     scene = new QGraphicsScene();
-    scene->setSceneRect(0,0,1440,896);
-    setFixedSize(1440,896);
+    scene->setSceneRect(0,0,1600,896);
+    setFixedSize(1600,896);
     setScene(scene);
 
     add_log("Game scene was created");
@@ -25,14 +25,15 @@ Game::Game(QWidget *parent)
     select_unit->setPen(QPen(QColor("red")));
     select_unit->setPos(-32,-32);
 
+    //Make gui
+    block_info=new QGraphicsTextItem();
+    block_info->setPos(1440,2);
+    scene->addItem(block_info);
 
-    map = new World(scene,this,select_block,select_unit);
+    map = new World(scene,this,select_block,select_unit,block_info);
 
 
     add_log("Map was generated");
-
-
-
 
 }
 

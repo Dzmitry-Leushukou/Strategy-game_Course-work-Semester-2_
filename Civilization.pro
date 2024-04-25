@@ -16,6 +16,7 @@ SOURCES += \
     city.cpp \
     enemy.cpp \
     game.cpp \
+    gui.cpp \
     log.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     city.h \
     enemy.h \
     game.h \
+    gui.h \
     log.h \
     mainwindow.h \
     player.h \

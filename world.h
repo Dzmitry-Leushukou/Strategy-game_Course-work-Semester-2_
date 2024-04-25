@@ -17,7 +17,7 @@ class World
 public:
     //QTimer * timer;
     //Constructors
-    World(QGraphicsScene*&, QWidget*,QGraphicsPolygonItem*,QGraphicsPolygonItem *);
+    World(QGraphicsScene*&, QWidget*,QGraphicsPolygonItem*,QGraphicsPolygonItem *, QGraphicsTextItem *);
 
     //Methods
     void placeBlocks();
@@ -26,12 +26,6 @@ public:
     void normalise_world();
     void contenent_name_creator();
     void contenent_distribution();
-
-public slots:
-    void HideError()
-    {
-        unit_error->setPos(-32,-32);
-    }
 
     //Getters
     QList<Block*>getBlocks();
@@ -45,13 +39,15 @@ public slots:
 private:
 
     Player* player;
-    QList<Block*>blocks;
+    QList<QList<Block*>>blocks;
     QList<city*>cities;
     QGraphicsScene *scene;
     QWidget *widget;
     std::mt19937 gen;
     QGraphicsPolygonItem * select;
-    QGraphicsTextItem * unit_error;
+    QGraphicsTextItem * block_info;
+
+
     bool **unitstay;
     int** height_map;
     std::pair<int,int> **map;

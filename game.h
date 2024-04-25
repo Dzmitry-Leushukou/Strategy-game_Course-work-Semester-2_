@@ -26,6 +26,7 @@ private:
     QGraphicsScene* scene;
     QGraphicsPolygonItem* select_block;
     QGraphicsPolygonItem* select_unit;
+    QGraphicsTextItem *block_info;
 
     World* map;
     Player *player;

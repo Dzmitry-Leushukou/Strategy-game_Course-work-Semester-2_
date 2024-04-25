@@ -1,7 +1,8 @@
 #include "block.h"
 
-Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select,QGraphicsPolygonItem *unit, Player*& pl, int** height_map, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
+Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select,QGraphicsPolygonItem *unit, Player*& pl, int** height_map,QGraphicsTextItem*block_info, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
+    this->block_info=block_info;
     this->height_map=height_map;
     this->player=pl;
     this->select=select;
@@ -20,6 +21,7 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if(event->buttons() & Qt::LeftButton)
     {
         selectBlock();
+        HideBlockInfo(block_info);
     }
     if(event->buttons() & Qt::RightButton)
     {
@@ -51,7 +53,7 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 int w=(-1)*q.front().first;
                 p=q.front().second;
                 q.pop();
-                qDebug()<<p<<" "<<x()/32<<" "<<y()/32;
+                //qDebug()<<p<<" "<<x()/32<<" "<<y()/32;
                 if(p.first==x()/32&&p.second==y()/32)
                     break;
                 if (w > d[p.first][p.second])  continue;
@@ -87,7 +89,7 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
             //qDebug()<<"Not find";
             if(p.first==x()/32&&p.second==y()/32)
             {
-                qDebug()<<"Find";
+                //qDebug()<<"Find";
             }else return;
 
 
@@ -97,7 +99,7 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 l=p;
                 p=pred[p.first][p.second];
             }
-            qDebug()<<"Try to move: "<<player ;
+            //qDebug()<<"Try to move: "<<player ;
 
             if(!player->move_unit(unit->pos(),l.first*32+11/2,l.second*32+11/2))
             {
@@ -113,7 +115,8 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void Block::getInfo()
 {
    add_log("Get info "+std::to_string(x()/32)+" "+std::to_string(y()/32));
-   QMessageBox::about(widget,"Square info", QString::fromStdString(get_square_info()));
+   //QMessageBox::about(widget,"Square info", QString::fromStdString(get_square_info()));
+   ShowBlockInfo(get_square_info(),block_info);
 }
 
 void Block::selectBlock()
@@ -161,7 +164,7 @@ void Block::change(int id)
 
 std::string Block::get_square_info()
 {
-    std::string res;
+    std::string res="=====Block info=====\n";
 
     res+="Type: ";
     switch (id)
@@ -200,11 +203,12 @@ std::string Block::get_square_info()
 
     res+="\n";
 
-    res+="Owner: Player ";
+    res+="Owner: ";
     if(owner==-1)
         res+="Neutral";
     else
     {
+        res+="Player ";
         res+=std::to_string(owner);
         if(owner==0)
             res+=" (You)";
@@ -234,10 +238,6 @@ void Block::setPlayer(Player *newPlayer)
     player = newPlayer;
 }
 
-void Block::setUnit_error(QGraphicsTextItem *newUnit_error)
-{
-    unit_error = newUnit_error;
-}
 
 
 short Block::getHeight() const

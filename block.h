@@ -15,12 +15,14 @@
 
 #include "log.h"
 #include "player.h"
+#include "gui.h"
+
 class Block : public QGraphicsPixmapItem
 {
     //Q_OBJECT
 public:
     //Constructors
-    Block(short,short,  QWidget*, QGraphicsScene*&,QGraphicsPolygonItem *,QGraphicsPolygonItem *, Player*& pl,int** height_map,QGraphicsItem* parent=NULL);
+    Block(short,short,  QWidget*, QGraphicsScene*&,QGraphicsPolygonItem *,QGraphicsPolygonItem *, Player*& pl,int** height_map,QGraphicsTextItem *,QGraphicsItem* parent=NULL);
 
     //Methods
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -37,7 +39,6 @@ public:
     void setContinent(std::string newContinent);
     void setOwner(short newOwner);
     void setPlayer(Player *newPlayer);
-    void setUnit_error(QGraphicsTextItem *newUnit_error);
 
 public slots:
     void HideError();
@@ -47,7 +48,7 @@ private:
     QGraphicsScene *scene;
     QGraphicsPolygonItem *select;
     QGraphicsPolygonItem *unit;
-    QGraphicsTextItem * unit_error;
+    QGraphicsTextItem * block_info;
 
 
     Player* player;

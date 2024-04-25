@@ -1,15 +1,20 @@
 #include "world.h"
 //#include "game.h"
 
-World::World(QGraphicsScene* &scene, QWidget* w, QGraphicsPolygonItem * select,QGraphicsPolygonItem * select_unit)
+World::World(QGraphicsScene* &scene, QWidget* w, QGraphicsPolygonItem * select,QGraphicsPolygonItem * select_unit,QGraphicsTextItem * block_info)
 {
     this->scene=scene;
     this->select_unit=select_unit;
     this->select=select;
-    qDebug()<<scene;
+    //qDebug()<<scene;
     widget=w;
     gen.seed(time(0));
 
+    blocks.resize(1440/32);
+    for(int i=0;i<1440/32;i++)
+        blocks[i].resize(896/32);
+
+    this->block_info=block_info;
     placeBlocks();
     normalise_world();
 
@@ -18,20 +23,11 @@ World::World(QGraphicsScene* &scene, QWidget* w, QGraphicsPolygonItem * select,Q
     contenent_distribution();
 
     player=new Player(scene,getUnitstay(), getMap(),select_unit,select);
-/*
-    unit_error=new QGraphicsTextItem("Units have no steps left");
-    QFont f;
-    f.setBold(true);
-    f.setPixelSize(16);
-    //unit_error->setFont(f);
-    unit_error->setPos(-32,-32);
-    unit_error->setDefaultTextColor(Qt::red);
-    scene->addItem(unit_error);
-*/
+
     for(auto& i:blocks)
     {
-        i->setPlayer(player);
-       // i->setUnit_error(unit_error);
+        for(auto& j:i)
+        j->setPlayer(player);
     }
 
 
@@ -58,12 +54,12 @@ void World::placeBlocks()
                 id=0,res=gen_res(id);
             map[i][j]={id,res};
 
-            Block* block=new Block(id,res, widget,scene,select,select_unit, player,height_map);
+            Block* block=new Block(id,res, widget,scene,select,select_unit, player,height_map, block_info);
 
             height_map[i][j]=block->getHeight();
 
             block->setPos(32*i,32*j);
-            blocks.push_back(block);
+            blocks[i][j]=block;
             scene->addItem(block);
         }
 
@@ -200,6 +196,7 @@ void World::contenent_distribution()
     {
         for(int j=1;j<896/32;j++)
         {
+
             if(!used[i][j]&&map[i][j].first!=0)
             {
                 num++;
@@ -211,7 +208,10 @@ void World::contenent_distribution()
                     std::pair<int,int>pos=q.front();
                     q.pop();
 
+                    qDebug()<<"------------------------------";
                     getBlock(pos.first*32,pos.second*32)->setContinent(contenent_name[num]);
+                    qDebug()<<pos<<" "<<num<<" "<<getBlock(pos.first*32,pos.second*32);
+                    qDebug()<<"==============================";
                     if(map[pos.first-1][pos.second].first>0&&!used[pos.first-1][pos.second])
                     {
                         used[pos.first-1][pos.second]=true;
@@ -244,17 +244,11 @@ void World::contenent_distribution()
     used=nullptr;
 }
 
-QList<Block *> World::getBlocks()
-{
-    return blocks;
-}
-
 Block *World::getBlock(int x, int y)
 {
     x/=32;
     y/=32;
-    int ind=y+std::max(x-1,0)*(896/32);
-    return blocks[ind];
+    return blocks[x][y];
 }
 
 bool** World::getUnitstay()
