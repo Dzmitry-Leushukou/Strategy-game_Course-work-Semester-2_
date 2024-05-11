@@ -18,7 +18,7 @@ public:
     void SetAttributes();
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void hide_select();
-    bool getMoves() const;
+    int getMoves() const;
 
     void setMoves(int newMoves);
 

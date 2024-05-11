@@ -40,20 +40,24 @@ World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,QG
 
 void World::placeBlocks()
 {
-    unitstay=new bool*[1440/32];
+    unitstay=new bool*[1440];
     map = new std::pair<int,int>*[1440/32];
     height_map=new int*[1440/32];
 
     for(int i=0;i<1440/32;i++)
     {
         unitstay[i]=new bool[896/32];
+        for(int j=0;j<896/32;j++)
+            unitstay[i][j]=false;
+    }
+    for(int i=0;i<1440/32;i++)
+    {
+
         map[i]=new std::pair<int,int>[896/32];
         height_map[i]=new int[896/32];
 
         for(int j=0;j<896/32;j++)
         {
-            unitstay[i][j]=false;
-
             short id=generate_block(),res=gen_res(id);
             if(i==0||i==1440/32-1||j==0||j==896/32-1)
                 id=0,res=gen_res(id);

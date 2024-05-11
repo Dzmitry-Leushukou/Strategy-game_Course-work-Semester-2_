@@ -21,6 +21,7 @@ void Unit::Spawn(int id)
         y1=gen()%(896/32);
     }while(used[x1][y1]||map[x1][y1].first==0);
     setPos(x1*32+11/2,y1*32+11/2);
+    used[x1][y1]=true;
     drawUnit();
 }
 
@@ -28,7 +29,6 @@ void Unit::Spawn(int id, int x, int y)
 {
     this->id=id;
     SetAttributes();
-    std::mt19937_64 gen(time(0));
     setPos(x*32,y*32);
     drawUnit();
 }
@@ -98,7 +98,7 @@ void Unit::hide_select()
     select->setPos(x(),y());
 }
 
-bool Unit::getMoves() const
+int Unit::getMoves() const
 {
     return moves;
 }
