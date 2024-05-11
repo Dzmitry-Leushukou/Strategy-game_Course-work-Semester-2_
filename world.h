@@ -10,16 +10,17 @@
 #include "city.h"
 #include "player.h"
 #include <queue>
-
-
+#include "button.h"
+#include <QObject>
 #pragma once
 
-class World
+class World : public QObject
 {
+    Q_OBJECT
 public:
     //QTimer * timer;
     //Constructors
-    World(QGraphicsScene*, QWidget*,QGraphicsPolygonItem*,QGraphicsPolygonItem *, QGraphicsTextItem *,QVector<Player*> &players_);
+    World(QGraphicsScene*, QWidget*,QGraphicsPolygonItem*,QGraphicsPolygonItem *, QGraphicsTextItem *,QVector<Player*> &players_,QObject *parent = nullptr);
 
     //Methods
     void placeBlocks();
@@ -32,12 +33,13 @@ public:
     //Getters
     QList<Block*>getBlocks();
     Block* getBlock(int,int);
-    bool** getUnitstay();
+    int** getUnitstay();
     std::pair<int,int> **getMap();
 
     //Setters
 
-
+public slots:
+    void action();
 private:
 
     QVector<Player*>& players;
@@ -49,8 +51,9 @@ private:
     QGraphicsPolygonItem * select;
     QGraphicsTextItem * block_info;
 
+    Button * action_button;
 
-    bool **unitstay;
+    int **unitstay;
     int** height_map;
     std::pair<int,int> **map;
     QGraphicsPolygonItem * select_unit;

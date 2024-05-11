@@ -1,8 +1,14 @@
 #include "world.h"
 //#include "game.h"
 
-World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,QGraphicsPolygonItem * select_unit,QGraphicsTextItem * block_info, QVector<Player*> &players_):players(players_)
+World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,
+             QGraphicsPolygonItem * select_unit,QGraphicsTextItem * block_info,
+             QVector<Player*> &players_, QObject*parent):players(players_), QObject(parent)
 {
+    action_button=new Button("⚒️",50,50);
+    action_button->setPos(-32,-32);
+    QObject::connect(action_button,SIGNAL(clicked()),this,SLOT(action()));
+    scene->addItem(action_button);
     this->scene=scene;
     this->select_unit=select_unit;
     this->select=select;
@@ -25,7 +31,7 @@ World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,QG
 
     //this->players=players;
     for(int i=0;i<4;i++){
-        players[i]=new Player(scene,getUnitstay(), getMap(),select_unit,select);
+        players[i]=new Player(scene,getUnitstay(), getMap(),select_unit,select,action_button,i+1);
         qDebug()<<players_[i]<<" "<<this->players[i];
     }
 
@@ -37,13 +43,13 @@ World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,QG
 
 void World::placeBlocks()
 {
-    unitstay=new bool*[1440];
+    unitstay=new int*[1440/32];
     map = new std::pair<int,int>*[1440/32];
     height_map=new int*[1440/32];
 
     for(int i=0;i<1440/32;i++)
     {
-        unitstay[i]=new bool[896/32];
+        unitstay[i]=new int[896/32];
         for(int j=0;j<896/32;j++)
             unitstay[i][j]=false;
     }
@@ -273,7 +279,7 @@ Block *World::getBlock(int x, int y)
     return blocks[x][y];
 }
 
-bool** World::getUnitstay()
+int** World::getUnitstay()
 {
     return unitstay;
 }
@@ -281,4 +287,13 @@ bool** World::getUnitstay()
 std::pair<int, int> **World::getMap()
 {
     return map;
+}
+
+void World::action()//Todo
+{
+    qDebug()<<"Action";
+
+    /*
+    player->getUnit(select_unit->pos())->tryAction();
+    */
 }

@@ -11,6 +11,7 @@
 #pragma once
 
 
+
 class Game : public QGraphicsView
 {
     Q_OBJECT
@@ -23,7 +24,7 @@ public:
     //Attributes
 
     //Fields
-
+    static long long whosTurn;
     //Slots
 public slots:
     void next_turn();
@@ -38,7 +39,7 @@ private:
     World* map;
     QVector<Player *>players;
 
-    long long whosTurn=0;
+
 };
 
 #endif // GAME_H

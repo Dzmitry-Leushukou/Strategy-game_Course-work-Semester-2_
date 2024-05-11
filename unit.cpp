@@ -1,11 +1,17 @@
 #include "unit.h"
 
-Unit::Unit(QGraphicsScene*& scene, bool ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *& select,QGraphicsPolygonItem *& select_block) {
+#include "game.h"
+//extern long long Game::whosTurn;
+
+Unit::Unit(QGraphicsScene*& scene, int ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *& select,QGraphicsPolygonItem *& select_block, Button *& action_button,int n) {
     this->scene=scene;
+    owner=n;
     this->used=used;
     this->select_block=select_block;
     this->map=map;
     this->select=select;
+
+    this->action_button=action_button;
     moves=1;
     //qDebug()<<"unit:"<<scene;
 }
@@ -21,7 +27,7 @@ void Unit::Spawn(int id)
         y1=gen()%(896/32);
     }while(used[x1][y1]||map[x1][y1].first==0);
     setPos(x1*32+11/2,y1*32+11/2);
-    used[x1][y1]=true;
+    used[x1][y1]=owner;
     drawUnit();
 }
 
@@ -49,7 +55,15 @@ void Unit::drawUnit()
         setPixmap(QPixmap(":game/resource/kngiht2.png"));
         break;
     case 3:
-        setPixmap(QPixmap(":game/resource/settler.png"));
+        switch(owner)
+        {
+        case 1:
+            setPixmap(QPixmap(":game/resource/settler.png"));
+            break;
+        case 2:
+            setPixmap(QPixmap(":game/resource/settler2.png"));
+            break;
+        }
         break;
     }
 }
@@ -75,19 +89,24 @@ void Unit::SetAttributes()
 
 void Unit::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if(event->buttons() & Qt::LeftButton)
+    if(event->buttons() & Qt::LeftButton)//Select unit
     {
         //<<select;
+
         select->setPos(x(),y());
-        //<<"L";
+
+        qDebug()<<(Game::whosTurn)%4+1<<" "<<owner;
+        if(Game::whosTurn+1==owner)
+            action_button->setPos(1441,600);
+        else
+            action_button->setPos(-32,-32);
         select_block->setPos(-32,-32);
 
     }
-    if(event->buttons() & Qt::RightButton)
+    if(event->buttons() & Qt::RightButton)//Unselect unit
     {
         select->setPos(-32,-32);
-        //qDebug()<<"L";
-        //add_log("Left Button clicked");
+        action_button->setPos(-32,-32);
 
     }
 }

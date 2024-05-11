@@ -1,5 +1,7 @@
 #include "game.h"
 
+long long Game::whosTurn=0;
+
 Game::Game(QWidget *parent)
 {
     players.resize(4);

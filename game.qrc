@@ -15,5 +15,6 @@
         <file>resource/knight2.png</file>
         <file>resource/mountaincl.png</file>
         <file>resource/watercl.png</file>
+        <file>resource/settler2.png</file>
     </qresource>
 </RCC>

@@ -1,13 +1,15 @@
 #include "player.h"
 
-Player::Player(QGraphicsScene *&scene, bool ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *select,QGraphicsPolygonItem *select_block)
+Player::Player(QGraphicsScene *&scene, int ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *select,QGraphicsPolygonItem *select_block,Button *& action_button,int n)
 {
+    this->action_button=action_button;
     this->scene=scene;
     this->used=used;
     this->map=map;
     this->select_block=select_block;
-    Unit* u=new Unit(scene,used,map,select,select_block);
+    Unit* u=new Unit(scene,used,map,select,select_block,action_button,n);
     u->Spawn(3);
+    number=n;
     qDebug()<<u;
     units.push_back(u);
     //qDebug()<<units.size();
@@ -64,5 +66,16 @@ for(auto& i:units)
 bool Player::getLose() const
 {
     return lose;
+}
+
+Unit *Player::getUnit(QPointF pos)
+{
+    for(qsizetype i=0;i<units.size();i++)
+    {
+        if(units[i]->pos()==pos)
+        {
+            return units[i];
+        }
+    }
 }
 

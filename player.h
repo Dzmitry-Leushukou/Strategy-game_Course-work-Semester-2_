@@ -2,27 +2,30 @@
 #define PLAYER_H
 #include "unit.h"
 #include <QList>
-
+#include "button.h"
 #pragma once
 
 class Player
 {
 public:
-    Player(QGraphicsScene *&scene, bool ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *select,QGraphicsPolygonItem *);
+    Player(QGraphicsScene *&scene, int ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *select,QGraphicsPolygonItem *,Button *& action_button,int);
     QList<Unit *> getUnits() const;
     bool move_unit(QPointF pos, int x1,int y1);
     void show_units();
     bool getLose() const;
-
+    Unit* getUnit(QPointF);
 private:
     QList<Unit*>units;
     QGraphicsScene *scene;
-    bool ** used;
+    int ** used;
     std::pair<int,int>** map;
     QGraphicsPolygonItem * select;
     QGraphicsPolygonItem * select_block;
 
+    int number;
     bool lose=false;
+
+    Button * action_button;
 };
 
 #endif // PLAYER_H
