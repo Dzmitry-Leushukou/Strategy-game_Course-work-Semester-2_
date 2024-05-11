@@ -3,6 +3,8 @@
 #include <string>
 #include <QGraphicsTextItem>
 
+#pragma once
+
 void ShowBlockInfo(std::string info, QGraphicsTextItem* t);
 void HideBlockInfo(QGraphicsTextItem* t);
 

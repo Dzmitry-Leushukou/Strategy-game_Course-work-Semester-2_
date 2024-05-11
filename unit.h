@@ -6,6 +6,8 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 
+#pragma once
+
 class Unit : public QGraphicsPixmapItem
 {
 public:

@@ -3,6 +3,8 @@
 #include <string>
 #include <fstream>
 
+#pragma once
+
 void add_log(std::string s);
 void cl();
 

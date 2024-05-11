@@ -17,12 +17,14 @@
 #include "player.h"
 #include "gui.h"
 
+#pragma once
+
 class Block : public QGraphicsPixmapItem
 {
     //Q_OBJECT
 public:
     //Constructors
-    Block(short,short,  QWidget*, QGraphicsScene*&,QGraphicsPolygonItem *,QGraphicsPolygonItem *, Player*& pl,int** height_map,QGraphicsTextItem *,QGraphicsItem* parent=NULL);
+    Block(short,short,  QWidget*, QGraphicsScene*&,QGraphicsPolygonItem *,QGraphicsPolygonItem *,int** height_map,QGraphicsTextItem *,QGraphicsItem* parent=NULL);
 
     //Methods
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

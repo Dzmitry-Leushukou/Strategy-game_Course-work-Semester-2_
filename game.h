@@ -2,13 +2,15 @@
 #define GAME_H
 
 #include <QGraphicsView>
+#include <QPushButton>
+#include <button.h>
 #include "world.h"
 #include "log.h"
 #include "player.h"
-#include "enemy.h"
+
 #pragma once
 
-//class View;
+
 class Game : public QGraphicsView
 {
 public:
@@ -16,21 +18,25 @@ public:
     Game(QWidget* parent=NULL);
 
     //Methods
-    void StartGame();
+//    void StartGame();
 
     //Attributes
 
-    //fields
+    //Fields
 
+    //Slots
+public slots:
+    void next_turn();
 private:
     QGraphicsScene* scene;
-    QGraphicsPolygonItem* select_block;
-    QGraphicsPolygonItem* select_unit;
+    static QGraphicsPolygonItem* select_block;
+    static QGraphicsPolygonItem* select_unit;
     QGraphicsTextItem *block_info;
 
+    Button *skip_button;
+
     World* map;
-    Player *player;
-    QList<Enemy*>enemies;
+    //QVector<Player *>players;
 
     long long whosTurn;
 };

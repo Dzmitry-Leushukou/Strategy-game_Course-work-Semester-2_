@@ -22,12 +22,14 @@ World::World(QGraphicsScene* &scene, QWidget* w, QGraphicsPolygonItem * select,Q
 
     contenent_distribution();
 
-    player=new Player(scene,getUnitstay(), getMap(),select_unit,select);
+    players.resize(4);
+    for(int i=0;i<4;i++)
+        players[i]=new Player(scene,getUnitstay(), getMap(),select_unit,select);
 
     for(auto& i:blocks)
     {
         for(auto& j:i)
-        j->setPlayer(player);
+        j->setPlayer(players[0]);
     }
 
 
@@ -54,7 +56,7 @@ void World::placeBlocks()
                 id=0,res=gen_res(id);
             map[i][j]={id,res};
 
-            Block* block=new Block(id,res, widget,scene,select,select_unit, player,height_map, block_info);
+            Block* block=new Block(id,res, widget,scene,select,select_unit, height_map, block_info);
 
             height_map[i][j]=block->getHeight();
 
@@ -208,10 +210,10 @@ void World::contenent_distribution()
                     std::pair<int,int>pos=q.front();
                     q.pop();
 
-                    qDebug()<<"------------------------------";
+                    //qDebug()<<"------------------------------";
                     getBlock(pos.first*32,pos.second*32)->setContinent(contenent_name[num]);
-                    qDebug()<<pos<<" "<<num<<" "<<getBlock(pos.first*32,pos.second*32);
-                    qDebug()<<"==============================";
+                    //qDebug()<<pos<<" "<<num<<" "<<getBlock(pos.first*32,pos.second*32);
+                    //qDebug()<<"==============================";
                     if(map[pos.first-1][pos.second].first>0&&!used[pos.first-1][pos.second])
                     {
                         used[pos.first-1][pos.second]=true;

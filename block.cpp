@@ -1,10 +1,10 @@
 #include "block.h"
 
-Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select,QGraphicsPolygonItem *unit, Player*& pl, int** height_map,QGraphicsTextItem*block_info, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
+Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select,QGraphicsPolygonItem *unit, int** height_map,QGraphicsTextItem*block_info, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
     this->block_info=block_info;
     this->height_map=height_map;
-    this->player=pl;
+    //this->player=pl;
     this->select=select;
     this->unit=unit;
     this->scene=scene;
@@ -21,7 +21,8 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if(event->buttons() & Qt::LeftButton)
     {
         selectBlock();
-        HideBlockInfo(block_info);
+        //HideBlockInfo(block_info);
+        getInfo();
     }
     if(event->buttons() & Qt::RightButton)
     {

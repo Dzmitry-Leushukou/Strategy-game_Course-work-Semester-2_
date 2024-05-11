@@ -2,6 +2,9 @@
 #define PLAYER_H
 #include "unit.h"
 #include <QList>
+
+#pragma once
+
 class Player
 {
 public:

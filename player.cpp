@@ -15,7 +15,7 @@ Player::Player(QGraphicsScene *&scene, bool ** used,  std::pair<int,int>** map, 
 
 
 
-    qDebug()<<select;
+    //qDebug()<<select;
     //qDebug()<<u->pos();
 }
 
@@ -38,8 +38,8 @@ bool Player::move_unit(QPointF pos, int x1, int y1)
 
         if(units[i]->pos()==pos)
         {
-            qDebug()<<"Found unit:"<<x1<<" "<<y1;
-            qDebug()<<units[i]->pos();
+            //qDebug()<<"Found unit:"<<x1<<" "<<y1;
+            //qDebug()<<units[i]->pos();
             //units[i]->move(x1,y1);
 
             if(units[i]->getMoves())return false;

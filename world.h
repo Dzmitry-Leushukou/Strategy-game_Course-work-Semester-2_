@@ -12,6 +12,8 @@
 #include <queue>
 
 
+#pragma once
+
 class World
 {
 public:
@@ -38,7 +40,7 @@ public:
 
 private:
 
-    Player* player;
+    QVector<Player*> players;
     QList<QList<Block*>>blocks;
     QList<city*>cities;
     QGraphicsScene *scene;

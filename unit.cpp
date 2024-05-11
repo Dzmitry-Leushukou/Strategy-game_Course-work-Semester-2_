@@ -77,9 +77,9 @@ void Unit::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if(event->buttons() & Qt::LeftButton)
     {
-        //qDebug()<<select;
+        //<<select;
         select->setPos(x(),y());
-        //qDebug()<<"L";
+        //<<"L";
         select_block->setPos(-32,-32);
 
     }

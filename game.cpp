@@ -31,12 +31,24 @@ Game::Game(QWidget *parent)
     scene->addItem(block_info);
 
     map = new World(scene,this,select_block,select_unit,block_info);
-
-
     add_log("Map was generated");
+
+    //QPushButton *skip_button=new QPushButton();
+
+    skip_button=new Button("Skip",160,80);
+    skip_button->setPos(1440,816);
+    connect(skip_button,SIGNAL(clicked()),this,SLOT(next_turn()));
+    scene->addItem(skip_button);
 
 }
 
+void Game::next_turn()
+{
+    whosTurn++;
+    qDebug()<<whosTurn;
+}
+
+/*
 void Game::StartGame()
 {
     //while(!enemies.empty())
@@ -47,4 +59,4 @@ void Game::StartGame()
         }
 
 }
-
+*/

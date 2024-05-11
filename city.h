@@ -1,6 +1,8 @@
 #ifndef CITY_H
 #define CITY_H
 
+#pragma once
+
 class city
 {
 public:
