@@ -258,9 +258,12 @@ void World::set_player(Player *pl)
         for(auto& j:i)
             j->setPlayer(pl);
     }
+
     select->setPos(-32,-32);
     select_unit->setPos(-32,-32);
 
+    for(auto i:pl->getUnits())
+        i->setMoves(1);
 }
 
 Block *World::getBlock(int x, int y)
