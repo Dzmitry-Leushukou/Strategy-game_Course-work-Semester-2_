@@ -61,3 +61,8 @@ for(auto& i:units)
         scene->addItem(i);
 }
 
+bool Player::getLose() const
+{
+    return lose;
+}
+

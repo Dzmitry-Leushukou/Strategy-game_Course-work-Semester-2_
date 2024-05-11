@@ -19,7 +19,7 @@ class World
 public:
     //QTimer * timer;
     //Constructors
-    World(QGraphicsScene*, QWidget*,QGraphicsPolygonItem*,QGraphicsPolygonItem *, QGraphicsTextItem *);
+    World(QGraphicsScene*, QWidget*,QGraphicsPolygonItem*,QGraphicsPolygonItem *, QGraphicsTextItem *,QVector<Player*> &players_);
 
     //Methods
     void placeBlocks();
@@ -28,7 +28,7 @@ public:
     void normalise_world();
     void contenent_name_creator();
     void contenent_distribution();
-
+    void set_player(Player * pl);
     //Getters
     QList<Block*>getBlocks();
     Block* getBlock(int,int);
@@ -40,7 +40,7 @@ public:
 
 private:
 
-    QVector<Player*> players;
+    QVector<Player*>& players;
     QList<QList<Block*>>blocks;
     QList<city*>cities;
     QGraphicsScene *scene;

@@ -2,6 +2,8 @@
 
 Game::Game(QWidget *parent)
 {
+    players.resize(4);
+
     //set up the screen
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -30,7 +32,7 @@ Game::Game(QWidget *parent)
     block_info->setPos(1440,2);
     scene->addItem(block_info);
 
-    map = new World(scene,this,select_block,select_unit,block_info);
+    map = new World(scene,this,select_block,select_unit,block_info, players);
     add_log("Map was generated");
 
     //QPushButton *skip_button=new QPushButton();
@@ -44,8 +46,12 @@ Game::Game(QWidget *parent)
 
 void Game::next_turn()
 {
+    do{
     whosTurn++;
     qDebug()<<whosTurn;
+    map->set_player(players[whosTurn%4]);
+    }while(players[whosTurn%4]->getLose());
+    QMessageBox::information(this,"Turn","Player "+QString::fromStdString(std::to_string(whosTurn%4+1))+ ", your turn");
 }
 
 /*

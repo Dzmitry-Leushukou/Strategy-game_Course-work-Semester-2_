@@ -1,7 +1,7 @@
 #include "world.h"
 //#include "game.h"
 
-World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,QGraphicsPolygonItem * select_unit,QGraphicsTextItem * block_info)
+World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,QGraphicsPolygonItem * select_unit,QGraphicsTextItem * block_info, QVector<Player*> &players_):players(players_)
 {
     this->scene=scene;
     this->select_unit=select_unit;
@@ -23,17 +23,14 @@ World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,QG
     scene->addItem(select_unit);
     contenent_distribution();
 
-
-    players.resize(4);
-    for(int i=0;i<4;i++)
+    //this->players=players;
+    for(int i=0;i<4;i++){
         players[i]=new Player(scene,getUnitstay(), getMap(),select_unit,select);
-
-
-    for(auto& i:blocks)
-    {
-        for(auto& j:i)
-        j->setPlayer(players[0]);
+        qDebug()<<players_[i]<<" "<<this->players[i];
     }
+
+
+    set_player(this->players[0]);
 
 
 }
@@ -252,6 +249,18 @@ void World::contenent_distribution()
         delete[] used[i],used[i]=nullptr;
     delete[] used;
     used=nullptr;
+}
+
+void World::set_player(Player *pl)
+{
+    for(auto& i:blocks)
+    {
+        for(auto& j:i)
+            j->setPlayer(pl);
+    }
+    select->setPos(-32,-32);
+    select_unit->setPos(-32,-32);
+
 }
 
 Block *World::getBlock(int x, int y)

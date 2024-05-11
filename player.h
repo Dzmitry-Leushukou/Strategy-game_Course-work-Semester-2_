@@ -12,6 +12,8 @@ public:
     QList<Unit *> getUnits() const;
     bool move_unit(QPointF pos, int x1,int y1);
     void show_units();
+    bool getLose() const;
+
 private:
     QList<Unit*>units;
     QGraphicsScene *scene;
@@ -20,6 +22,7 @@ private:
     QGraphicsPolygonItem * select;
     QGraphicsPolygonItem * select_block;
 
+    bool lose=false;
 };
 
 #endif // PLAYER_H
