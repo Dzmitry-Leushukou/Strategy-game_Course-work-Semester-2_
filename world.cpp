@@ -1,7 +1,7 @@
 #include "world.h"
 //#include "game.h"
 
-World::World(QGraphicsScene* &scene, QWidget* w, QGraphicsPolygonItem * select,QGraphicsPolygonItem * select_unit,QGraphicsTextItem * block_info)
+World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,QGraphicsPolygonItem * select_unit,QGraphicsTextItem * block_info)
 {
     this->scene=scene;
     this->select_unit=select_unit;
@@ -18,13 +18,16 @@ World::World(QGraphicsScene* &scene, QWidget* w, QGraphicsPolygonItem * select,Q
     placeBlocks();
     normalise_world();
 
+    //qDebug()<<select;
     scene->addItem(select);
-
+    scene->addItem(select_unit);
     contenent_distribution();
+
 
     players.resize(4);
     for(int i=0;i<4;i++)
         players[i]=new Player(scene,getUnitstay(), getMap(),select_unit,select);
+
 
     for(auto& i:blocks)
     {
@@ -62,6 +65,7 @@ void World::placeBlocks()
 
             block->setPos(32*i,32*j);
             blocks[i][j]=block;
+            //qDebug()<<block;
             scene->addItem(block);
         }
 

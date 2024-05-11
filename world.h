@@ -19,7 +19,7 @@ class World
 public:
     //QTimer * timer;
     //Constructors
-    World(QGraphicsScene*&, QWidget*,QGraphicsPolygonItem*,QGraphicsPolygonItem *, QGraphicsTextItem *);
+    World(QGraphicsScene*, QWidget*,QGraphicsPolygonItem*,QGraphicsPolygonItem *, QGraphicsTextItem *);
 
     //Methods
     void placeBlocks();

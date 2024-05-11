@@ -6,7 +6,7 @@ Unit::Unit(QGraphicsScene*& scene, bool ** used,  std::pair<int,int>** map, QGra
     this->select_block=select_block;
     this->map=map;
     this->select=select;
-    moves=false;
+    moves=1;
     //qDebug()<<"unit:"<<scene;
 }
 
@@ -92,10 +92,6 @@ void Unit::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void Unit::move(int x, int y)
-{
-    setPos(x,y);
-}
 
 void Unit::hide_select()
 {
@@ -107,7 +103,7 @@ bool Unit::getMoves() const
     return moves;
 }
 
-void Unit::setMoves(bool newMoves)
+void Unit::setMoves(int newMoves)
 {
     moves = newMoves;
 }

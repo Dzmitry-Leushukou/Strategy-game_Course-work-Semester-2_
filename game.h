@@ -13,12 +13,12 @@
 
 class Game : public QGraphicsView
 {
+    Q_OBJECT
 public:
     //Costructors
     Game(QWidget* parent=NULL);
 
     //Methods
-//    void StartGame();
 
     //Attributes
 
@@ -29,16 +29,16 @@ public slots:
     void next_turn();
 private:
     QGraphicsScene* scene;
-    static QGraphicsPolygonItem* select_block;
-    static QGraphicsPolygonItem* select_unit;
+    QGraphicsPolygonItem* select_block;
+    QGraphicsPolygonItem* select_unit;
     QGraphicsTextItem *block_info;
 
     Button *skip_button;
 
     World* map;
-    //QVector<Player *>players;
+    QVector<Player *>players;
 
-    long long whosTurn;
+    long long whosTurn=0;
 };
 
 #endif // GAME_H

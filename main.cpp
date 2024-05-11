@@ -3,8 +3,6 @@
 #include <QApplication>
 #include <QScreen>
 
-#pragma once
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
