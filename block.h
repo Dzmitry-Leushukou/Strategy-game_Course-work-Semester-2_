@@ -16,6 +16,7 @@
 #include "log.h"
 #include "player.h"
 #include "gui.h"
+#include "city.h"
 
 #pragma once
 
@@ -32,6 +33,7 @@ public:
     void selectBlock();
     void updateTexture();
     void change(int id);
+    void build_city();
 
     //getters
     std::string get_square_info();
@@ -62,6 +64,7 @@ private:
     short int id;
     short int resource;//0 - nothing 1 - wheat 2 - stone 3 - steal 4 - fish
     int** height_map;
+    city * City=new city();
 };
 
 #endif // BLOCK_H

@@ -7,7 +7,7 @@
 #include <ctime>
 #include <random>
 #include <QWidget>
-#include "city.h"
+//#include "city.h"
 #include "player.h"
 #include <queue>
 #include "button.h"
@@ -38,13 +38,17 @@ public:
 
     //Setters
 
+
+    //Fields
+    static Block * choosed_block;
+
 public slots:
     void action();
 private:
 
     QVector<Player*>& players;
     QList<QList<Block*>>blocks;
-    QList<city*>cities;
+    //QList<city*>cities;
     QGraphicsScene *scene;
     QWidget *widget;
     std::mt19937 gen;
@@ -52,6 +56,9 @@ private:
     QGraphicsTextItem * block_info;
 
     Button * action_button;
+
+
+
 
     int **unitstay;
     int** height_map;

@@ -1,5 +1,7 @@
 #include "block.h"
 
+#include"game.h"
+
 Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select,QGraphicsPolygonItem *unit, int** height_map,QGraphicsTextItem*block_info, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
     this->block_info=block_info;
@@ -128,6 +130,12 @@ void Block::selectBlock()
 
 void Block::updateTexture()
 {
+    if(City->getIs_city())
+    {
+        setPixmap(QPixmap(":game/resource/castle.png"));
+        return;
+    }
+
     switch(id)
     {
     case 0:
@@ -160,6 +168,12 @@ void Block::updateTexture()
 void Block::change(int id)
 {
     this->id=height=id;
+    updateTexture();
+}
+
+void Block::build_city()
+{
+    City->create(Game::whosTurn%4);
     updateTexture();
 }
 

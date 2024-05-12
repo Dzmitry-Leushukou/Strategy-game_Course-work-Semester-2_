@@ -1,6 +1,7 @@
 #include "unit.h"
 
 #include "game.h"
+#include "world.h"
 //extern long long Game::whosTurn;
 
 Unit::Unit(QGraphicsScene*& scene, int ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *& select,QGraphicsPolygonItem *& select_block, Button *& action_button,int n) {
@@ -40,16 +41,45 @@ void Unit::Spawn(int id, int x, int y)
 }
 
 void Unit::drawUnit()
-{
+{/*
     if(map[(int)(x()/32)][(int)(y()/32)].first==0)
         return setPixmap(QPixmap(":game/resource/ship.png"));
+*/
     switch(id)
     {
     case 0:
-        setPixmap(QPixmap(":game/resource/builder.png"));
+        switch(owner)
+        {
+        case 1:
+            setPixmap(QPixmap(":game/resource/builder.png"));
+            break;
+        case 2:
+            setPixmap(QPixmap(":game/resource/builder2.png"));
+            break;
+        case 3:
+            setPixmap(QPixmap(":game/resource/builder3.png"));
+            break;
+        case 4:
+            setPixmap(QPixmap(":game/resource/builder4.png"));
+            break;
+        }
         break;
     case 1:
-        setPixmap(QPixmap(":game/resource/knight1.png"));
+        switch(owner)
+        {
+        case 1:
+            setPixmap(QPixmap(":game/resource/knight.png"));
+            break;
+        case 2:
+            setPixmap(QPixmap(":game/resource/knight2.png"));
+            break;
+        case 3:
+            setPixmap(QPixmap(":game/resource/knight3.png"));
+            break;
+        case 4:
+            setPixmap(QPixmap(":game/resource/knight4.png"));
+            break;
+        }
         break;
     case 2:
         setPixmap(QPixmap(":game/resource/kngiht2.png"));
@@ -62,6 +92,12 @@ void Unit::drawUnit()
             break;
         case 2:
             setPixmap(QPixmap(":game/resource/settler2.png"));
+            break;
+        case 3:
+            setPixmap(QPixmap(":game/resource/settler3.png"));
+            break;
+        case 4:
+            setPixmap(QPixmap(":game/resource/settler4.png"));
             break;
         }
         break;
@@ -125,4 +161,15 @@ int Unit::getMoves() const
 void Unit::setMoves(int newMoves)
 {
     moves = newMoves;
+}
+
+void Unit::action()
+{
+    switch(id)
+    {
+    case 3:
+        World::choosed_block->build_city();
+
+        break;
+    }
 }

@@ -10,7 +10,7 @@ public:
 
     void create(short);
     void change_owner(short);
-
+    void destroy();
 
     bool getIs_city() const;
     short getOwner() const;

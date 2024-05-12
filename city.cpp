@@ -17,6 +17,12 @@ void city::change_owner(short owner)
     this->owner=owner;
 }
 
+void city::destroy()
+{
+    is_city=false;
+    owner=-1;
+}
+
 bool city::getIs_city() const
 {
     return is_city;

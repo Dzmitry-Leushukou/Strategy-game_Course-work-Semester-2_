@@ -1,5 +1,7 @@
 #include "world.h"
-//#include "game.h"
+#include "game.h"
+
+Block * World::choosed_block=nullptr;
 
 World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,
              QGraphicsPolygonItem * select_unit,QGraphicsTextItem * block_info,
@@ -291,9 +293,25 @@ std::pair<int, int> **World::getMap()
 
 void World::action()//Todo
 {
-    qDebug()<<"Action";
 
-    /*
-    player->getUnit(select_unit->pos())->tryAction();
-    */
+    QPointF  position= players[Game::whosTurn]->getUnit(select_unit->pos())->pos();
+
+    choosed_block=getBlock(((int)position.x()/32)*32,((int)position.y()/32)*32);
+    players[Game::whosTurn]->getUnit(select_unit->pos())->action();
+
+    qDebug()<<choosed_block;
+    int ind=0;
+    for(auto& i:players[Game::whosTurn]->getUnits())
+    {
+        if(i->pos()==position)
+        {
+            scene->removeItem(i);
+            players[Game::whosTurn]->getUnits().removeAt(ind);
+            select_unit->setPos(-32,-32);
+            return;
+        }
+        ind++;
+    }
+
+
 }

@@ -24,7 +24,6 @@ public:
 
     void setMoves(int newMoves);
 
-public slots:
     void action();
 
 private:
