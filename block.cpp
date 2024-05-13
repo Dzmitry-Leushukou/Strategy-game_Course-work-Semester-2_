@@ -1,8 +1,12 @@
 #include "block.h"
 
 #include"game.h"
-
-Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select,QGraphicsPolygonItem *unit, int** height_map,QGraphicsTextItem*block_info, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
+Button * Block::unit1_button=nullptr;
+Button * Block::unit2_button=nullptr;
+Button * Block::unit3_button=nullptr;
+Button * Block::unit4_button=nullptr;
+Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select,QGraphicsPolygonItem *unit,
+             int** height_map,QGraphicsTextItem*block_info,QGraphicsPixmapItem *parent, QObject *parent2):QGraphicsPixmapItem(parent), QObject(parent2)
 {
     this->block_info=block_info;
     this->height_map=height_map;
@@ -16,13 +20,31 @@ Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGra
     resource=res;
     City=new city();
     City->setPos(pos().x(),pos().y());
-    //City->setPs(pos());
-    //qDebug()<<City;
-    //qDebug()<<City;
-
     updateTexture();
-    //owner=building=-1;
+
+
+    unit1_button=new Button("🔨",35,35);
+    unit1_button->setPos(-32,-320);
+    connect(unit1_button,SIGNAL(clicked()),this,SLOT(create_builder()));
+    scene->addItem(unit1_button);
+
+    unit2_button=new Button("🚩",35,35);
+    unit2_button->setPos(-32,-320);
+    QObject::connect(unit2_button,SIGNAL(clicked()),this,SLOT(create_settler()));
+    scene->addItem(unit2_button);
+
+    unit3_button=new Button("🗡️",35,35);
+    unit3_button->setPos(-32,-320);
+    QObject::connect(unit3_button,SIGNAL(clicked()),this,SLOT(create_knight()));
+    scene->addItem(unit3_button);
+
+    unit4_button=new Button("⚔",35,35);
+    unit4_button->setPos(-32,-320);
+    QObject::connect(unit4_button,SIGNAL(clicked()),this,SLOT(create_knight2()));
+    scene->addItem(unit4_button);
+
 }
+
 
 void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -125,7 +147,25 @@ void Block::getInfo()
 {
    add_log("Get info "+std::to_string(x()/32)+" "+std::to_string(y()/32));
    //QMessageBox::about(widget,"Square info", QString::fromStdString(get_square_info()));
+   qDebug()<<"Show info for "<<pos();
    ShowBlockInfo(get_square_info(),block_info);
+
+   //qDebug()<<City->getIs_city();
+   if(City->getIs_city())
+   {
+       unit1_button->setPos(1441, 500);
+       unit2_button->setPos(1441 + 35 +6, 500);
+       unit3_button->setPos(1441+ 35*2 +6*2, 500);
+       unit4_button->setPos(1441+ 35*3 +18, 500);
+   }
+   else
+   {
+       //qDebug()<<"MOVE!!!";
+       unit1_button->setPos(-32, -100);
+       unit2_button->setPos(-32, -100);
+       unit3_button->setPos(-32, -100);
+       unit4_button->setPos(-32, -100);
+   }
 }
 
 void Block::selectBlock()
@@ -268,6 +308,7 @@ void Block::change(int id)
 
 void Block::build_city()
 {
+
     scene->removeItem(City);
     City->create(Game::whosTurn%4);
 //    qDebug()<<"@"<<pos();
@@ -365,6 +406,27 @@ std::string Block::get_square_info()
         res+="\n\n=====City  Info=====\nLevel: ";
         res+=std::to_string(City->getLevel())+"\n";
         res+="Grow from: "+std::to_string(City->getGrow_from());
+        //qDebug()<<"="<<City;
+        if(City->getOwner()==Game::whosTurn%4&&City->getBuild_id()!=4)
+        {
+            res+="\nBuild: ";
+            switch(City->getBuild_id())
+            {
+            case 0:
+                res+="Builder\n";
+                break;
+            case 1:
+                res+="Settler\n";
+                break;
+            case 2:
+                res+="Knight\n";
+                break;
+            case 3:
+                res+="Knight (grade 2)\n";
+                break;
+            }
+            res+="Will ready by "+std::to_string(City->getBuild_finish())+" turns";
+        }
     }
     return res;
 }
@@ -381,7 +443,51 @@ void Block::setPlayer(Player *newPlayer)
     player = newPlayer;
 }
 
+void Block::create_builder()
+{
 
+    if(select->pos()!=pos())
+    {
+    World::blocks[(int)select->pos().x()/32][(int)select->pos().y()/32]->create_builder();
+        return;
+    }
+    City->build(0);
+    //qDebug()<<"!"<<City->getBuild_id();
+    getInfo();
+}
+
+void Block::create_settler()
+{
+
+    if(select->pos()!=pos()){
+        World::blocks[(int)select->pos().x()/32][(int)select->pos().y()/32]->create_settler();
+    return;
+}
+    City->build(1);
+    getInfo();
+}
+
+void Block::create_knight()
+{
+
+    if(select->pos()!=pos()){
+        World::blocks[(int)select->pos().x()/32][(int)select->pos().y()/32]->create_knight();
+        return;
+    }
+    City->build(2);
+    getInfo();
+}
+
+void Block::create_knight2()
+{
+
+    if(select->pos()!=pos()){
+        World::blocks[(int)select->pos().x()/32][(int)select->pos().y()/32]->create_knight2();
+        return;
+    }
+    City->build(3);
+    getInfo();
+}
 
 short Block::getHeight() const
 {

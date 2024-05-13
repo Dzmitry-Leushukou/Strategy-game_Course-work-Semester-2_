@@ -44,6 +44,7 @@ public:
     static std::pair<int,int> **map;
     static QVector<QVector<int>>owners;
     static QList<QList<Block*>>blocks;
+    static QVector<int> resource_amount;
 public slots:
     void action();
 private:
@@ -58,9 +59,6 @@ private:
     QGraphicsTextItem * block_info;
 
     Button * action_button;
-
-
-
 
     int **unitstay;
     int** height_map;

@@ -17,15 +17,17 @@
 #include "player.h"
 #include "gui.h"
 #include "city.h"
+#include "button.h"
 
 #pragma once
 
-class Block : public QGraphicsPixmapItem
+class Block : public QObject, public QGraphicsPixmapItem
 {
-    //Q_OBJECT
+    Q_OBJECT
 public:
     //Constructors
-    Block(short,short,  QWidget*, QGraphicsScene*&,QGraphicsPolygonItem *,QGraphicsPolygonItem *,int** height_map,QGraphicsTextItem *,QGraphicsItem* parent=NULL);
+    Block(short,short,  QWidget*, QGraphicsScene*&,QGraphicsPolygonItem *,QGraphicsPolygonItem *,
+          int** height_map,QGraphicsTextItem *, QGraphicsPixmapItem * parent=nullptr, QObject * parent2=nullptr);
 
     //Methods
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -35,6 +37,7 @@ public:
     void change(int id);
     void build_city();
     bool isCity();
+
     //getters
     std::string get_square_info();
     short getHeight() const;
@@ -45,8 +48,12 @@ public:
     void setPlayer(Player *newPlayer);
 
 public slots:
-    void HideError();
-    void ShowError();
+    // void HideError();
+    // void ShowError();
+    void create_builder();
+    void create_settler();
+    void create_knight();
+    void create_knight2();
 private:
     QWidget *widget;
     QGraphicsScene *scene;
@@ -62,9 +69,15 @@ private:
     short int owner=-1;
     //short int building;
     short int id;
-    short int resource;//0 - nothing 1 - wheat 2 - stone 3 - steal 4 - fish
+    short int resource;//4
     int** height_map;
     city * City=nullptr;
+
+    //Buttons
+    static Button * unit1_button;
+    static Button * unit2_button;
+    static Button * unit3_button;
+    static Button * unit4_button;
 };
 
 #endif // BLOCK_H

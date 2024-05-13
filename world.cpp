@@ -5,6 +5,7 @@ Block * World::choosed_block=nullptr;
 std::pair<int,int> **World::map=nullptr;
 QVector<QVector<int>>World::owners;
 QList<QList<Block*>>World::blocks;
+QVector<int> World::resource_amount={0,0,0,0,0};
 World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,
              QGraphicsPolygonItem * select_unit,QGraphicsTextItem * block_info,
              QVector<Player*> &players_, QObject*parent):players(players_), QObject(parent)
@@ -279,6 +280,8 @@ void World::set_player(Player *pl)
 
     for(auto i:pl->getUnits())
         i->setMoves(1);
+
+    resource_amount=pl->resource_amount;
 }
 
 Block *World::getBlock(int x, int y)
@@ -306,14 +309,15 @@ void World::action()//Todo
     choosed_block=getBlock(((int)position.x()/32)*32,((int)position.y()/32)*32);
     players[Game::whosTurn]->getUnit(select_unit->pos())->action();
 
-    qDebug()<<choosed_block;
+    //qDebug()<<choosed_block;
     int ind=0;
     for(auto& i:players[Game::whosTurn]->getUnits())
     {
-        if(i->pos()==position)
+        if(i->pos()==position&&i->getActions()==0)
         {
             scene->removeItem(i);
             players[Game::whosTurn]->getUnits().removeAt(ind);
+            qDebug()<<"Remove unit";
             select_unit->setPos(-32,-32);
             return;
         }

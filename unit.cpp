@@ -82,7 +82,21 @@ void Unit::drawUnit()
         }
         break;
     case 2:
-        setPixmap(QPixmap(":game/resource/kngiht2.png"));
+        switch(owner)
+        {
+        case 1:
+            setPixmap(QPixmap(":game/resource/knight2.png"));
+            break;
+        case 2:
+            setPixmap(QPixmap(":game/resource/knight22.png"));
+            break;
+        case 3:
+            setPixmap(QPixmap(":game/resource/knight23.png"));
+            break;
+        case 4:
+            setPixmap(QPixmap(":game/resource/knight24.png"));
+            break;
+        }
         break;
     case 3:
         switch(owner)
@@ -115,9 +129,9 @@ void Unit::SetAttributes()
         attack=10,hp=20,actions=-1;
         break;
     case 2:
-        attack=0,hp=20,actions=-1;
+        attack=18,hp=20,actions=-1;
         break;
-    case 4:
+    case 3:
         attack=0,hp=10,actions=1;
         break;
     }
@@ -173,9 +187,15 @@ void Unit::action()
             QMessageBox::warning(0,"Error","You can't place city these");
             return;
         }
+        actions--;
         World::choosed_block->build_city();
         select->setPos(-32,-32);
         action_button->setPos(-32,-32);
         break;
     }
+}
+
+int Unit::getActions() const
+{
+    return actions;
 }

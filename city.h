@@ -13,21 +13,22 @@ public:
     city(QGraphicsItem *parent=NULL);
 
     void create(short);
-    //void change_owner(short);
     void destroy();
-
     void check();
+    void build(int id);
 
+    //Getters
     bool getIs_city() const;
     short getOwner() const;
-
-    //void build();
     int getLevel() const;
-
     int getGrow_from() const;
 
-
+    //Setters
     void setGrow_from(int newGrow_from);
+
+    int getBuild_id() const;
+
+    int getBuild_finish() const;
 
 private:
     bool is_city;
@@ -42,10 +43,9 @@ private:
     1 - Settler
     2 - Knight
     3 - Knight LVL 2
-    4 -
     */
-    int build_now;//Id
-    int build_finish;//When
+    int build_id=4;//Id
+    int build_finish=0;//When
 };
 
 #endif // CITY_H

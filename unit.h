@@ -26,6 +26,8 @@ public:
 
     void action();
 
+    int getActions() const;
+
 private:
     int id;
     int attack;

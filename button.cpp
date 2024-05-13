@@ -18,6 +18,7 @@ Button::Button(QString name, int weight, int height, QGraphicsItem *parent): QGr
 
     // allow responding to hover events
     setAcceptHoverEvents(true);
+
 }
 
 void Button::mousePressEvent(QGraphicsSceneMouseEvent *event){
@@ -28,7 +29,7 @@ void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
     // change color to cyan
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::yellow);
+    brush.setColor(color1);
     setBrush(brush);
 }
 
@@ -36,6 +37,13 @@ void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
     // change color to dark cyan
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::darkYellow);
+    brush.setColor(color2);
     setBrush(brush);
 }
+
+void Button::setColors(const QColor &newColor1, const QColor &newColor2)
+{
+    color1=newColor1;
+    color2=newColor2;
+}
+
