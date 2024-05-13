@@ -34,6 +34,10 @@ Game::Game(QWidget *parent)
     block_info->setPos(1440,2);
     scene->addItem(block_info);
 
+    res_info=new QGraphicsTextItem();
+    res_info->setPos(1440,610);
+    scene->addItem(res_info);
+
 
     turn_info=new QGraphicsTextItem();
     turn_info->setPos(1440,790);
@@ -55,17 +59,28 @@ Game::Game(QWidget *parent)
     connect(skip_button,SIGNAL(clicked()),this,SLOT(next_turn()));
     scene->addItem(skip_button);
 
+    ShowResourceInfo("Money: "+std::to_string(players[whosTurn%4]->resource_amount[0])+
+                         "\nStone: "+std::to_string(players[whosTurn%4]->resource_amount[1])+
+                         "\nIron: "+std::to_string(players[whosTurn%4]->resource_amount[2])+
+                         "\nWheat: "+std::to_string(players[whosTurn%4]->resource_amount[3])+
+                         "\nFish: "+std::to_string(players[whosTurn%4]->resource_amount[4]),res_info);
+
 }
 
 void Game::next_turn()
 {
     do{
     whosTurn++;
-    qDebug()<<whosTurn;
+    //qDebug()<<whosTurn;
     map->set_player(players[whosTurn%4]);
     }while(players[whosTurn%4]->getLose());
     QMessageBox::information(this,"Turn","Player "+QString::fromStdString(std::to_string(whosTurn%4+1))+ ", your turn");
     UpdateTurnInfo(turn_info);
+    ShowResourceInfo("Money: "+std::to_string(players[whosTurn%4]->resource_amount[0])+
+                     "\nStone: "+std::to_string(players[whosTurn%4]->resource_amount[1])+
+                     "\nIron: "+std::to_string(players[whosTurn%4]->resource_amount[2])+
+                     "\nWheat: "+std::to_string(players[whosTurn%4]->resource_amount[3])+
+                     "\nFish: "+std::to_string(players[whosTurn%4]->resource_amount[4]),res_info);
 }
 
 /*

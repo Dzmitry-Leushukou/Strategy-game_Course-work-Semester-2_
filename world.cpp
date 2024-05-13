@@ -34,7 +34,7 @@ World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,
     //this->players=players;
     for(int i=0;i<4;i++){
         players[i]=new Player(scene,getUnitstay(), getMap(),select_unit,select,action_button,i+1);
-        qDebug()<<players_[i]<<" "<<this->players[i];
+        //qDebug()<<players_[i]<<" "<<this->players[i];
     }
 
 

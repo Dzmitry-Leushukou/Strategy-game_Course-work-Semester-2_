@@ -131,9 +131,9 @@ void Unit::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         select->setPos(x(),y());
 
-        qDebug()<<(Game::whosTurn)%4+1<<" "<<owner;
+        //qDebug()<<(Game::whosTurn)%4+1<<" "<<owner;
         if(Game::whosTurn+1==owner)
-            action_button->setPos(1441,740);
+            action_button->setPos(1441,730);
         else
             action_button->setPos(-32,-32);
         select_block->setPos(-32,-32);

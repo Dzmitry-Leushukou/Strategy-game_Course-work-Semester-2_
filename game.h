@@ -35,6 +35,7 @@ private:
     QGraphicsPolygonItem* select_unit;
     QGraphicsTextItem *block_info;
     QGraphicsTextItem *turn_info;
+    QGraphicsTextItem *res_info;
 
     Button *skip_button;
 

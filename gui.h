@@ -10,4 +10,6 @@ void HideBlockInfo(QGraphicsTextItem* t);
 
 void UpdateTurnInfo(QGraphicsTextItem* t);
 
+void ShowResourceInfo(std::string info,QGraphicsTextItem* t);
+
 #endif // GUI_H

@@ -26,3 +26,8 @@ void UpdateTurnInfo(QGraphicsTextItem* t)
     t->setPlainText(QString::fromStdString("Turn: Player "+col[Game::whosTurn%4]));
 
 }
+
+void ShowResourceInfo(std::string info,QGraphicsTextItem *t)
+{
+    t->setPlainText(QString::fromStdString("==Resources amount==\n"+info));
+}

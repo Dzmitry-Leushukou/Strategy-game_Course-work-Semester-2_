@@ -1,5 +1,5 @@
 #include "player.h"
-
+//QVector<int> Player::resource_amount={0,0,0,0,0};
 Player::Player(QGraphicsScene *&scene, int ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *select,QGraphicsPolygonItem *select_block,Button *& action_button,int n)
 {
     this->action_button=action_button;
@@ -15,11 +15,7 @@ Player::Player(QGraphicsScene *&scene, int ** used,  std::pair<int,int>** map, Q
     //qDebug()<<units.size();
     scene->addItem(u);
 
-
-
-
-    //qDebug()<<select;
-    //qDebug()<<u->pos();
+    //resource_amount.resize(5);
 }
 
 QList<Unit *> Player::getUnits() const

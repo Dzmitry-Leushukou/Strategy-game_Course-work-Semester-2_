@@ -14,6 +14,7 @@ public:
     void show_units();
     bool getLose() const;
     Unit* getUnit(QPointF);
+    QVector<int>resource_amount={0,0,0,0,0};
 private:
     QList<Unit*>units;
     QGraphicsScene *scene;
@@ -26,6 +27,8 @@ private:
     bool lose=false;
 
     Button * action_button;
+
+
 };
 
 #endif // PLAYER_H
