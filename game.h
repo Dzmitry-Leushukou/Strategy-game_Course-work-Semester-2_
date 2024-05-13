@@ -4,6 +4,7 @@
 #include <QGraphicsView>
 #include <QPushButton>
 #include <button.h>
+#include <QFont>
 #include "world.h"
 #include "log.h"
 #include "player.h"
@@ -33,6 +34,7 @@ private:
     QGraphicsPolygonItem* select_block;
     QGraphicsPolygonItem* select_unit;
     QGraphicsTextItem *block_info;
+    QGraphicsTextItem *turn_info;
 
     Button *skip_button;
 

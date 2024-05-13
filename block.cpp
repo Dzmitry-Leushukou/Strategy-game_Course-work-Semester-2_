@@ -14,6 +14,11 @@ Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGra
     this->id=id;
     this->height=id;
     resource=res;
+    City=new city();
+    City->setPos(pos().x(),pos().y());
+    qDebug()<<City;
+    //qDebug()<<City;
+
     updateTexture();
     owner=building=-1;
 }
@@ -132,7 +137,8 @@ void Block::updateTexture()
 {
     if(City->getIs_city())
     {
-        setPixmap(QPixmap(":game/resource/castle.png"));
+
+        //setPixmap(QPixmap(":game/resource/castle.png"));
         return;
     }
 
@@ -173,8 +179,19 @@ void Block::change(int id)
 
 void Block::build_city()
 {
+    scene->removeItem(City);
     City->create(Game::whosTurn%4);
+    //qDebug()<<pos();
+    City->setPos(pos());
+    //qDebug()<<City;
+    scene->addItem(City);
     updateTexture();
+    owner=Game::whosTurn%4;
+}
+
+bool Block::isCity()
+{
+    return City->getIs_city();
 }
 
 std::string Block::get_square_info()
@@ -225,8 +242,6 @@ std::string Block::get_square_info()
     {
         res+="Player ";
         res+=std::to_string(owner);
-        if(owner==0)
-            res+=" (You)";
     }
     res+="\n";
 
@@ -239,6 +254,13 @@ std::string Block::get_square_info()
     case 2:
         res+="Continent: "+continent;
         break;
+    }
+
+    qDebug()<<City->getIs_city();
+    if(City->getIs_city())
+    {
+        res+="\n\n=====City  Info=====\nLevel: ";
+        res+=std::to_string(City->getLevel());
     }
     return res;
 }

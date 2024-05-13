@@ -34,6 +34,17 @@ Game::Game(QWidget *parent)
     block_info->setPos(1440,2);
     scene->addItem(block_info);
 
+
+    turn_info=new QGraphicsTextItem();
+    turn_info->setPos(1440,790);
+    QFont fnt;
+    fnt.setBold(true);
+    fnt.setPixelSize(17);
+    turn_info->setFont(fnt);
+    scene->addItem(turn_info);
+
+    UpdateTurnInfo(turn_info);
+
     map = new World(scene,this,select_block,select_unit,block_info, players);
     add_log("Map was generated");
 
@@ -54,6 +65,7 @@ void Game::next_turn()
     map->set_player(players[whosTurn%4]);
     }while(players[whosTurn%4]->getLose());
     QMessageBox::information(this,"Turn","Player "+QString::fromStdString(std::to_string(whosTurn%4+1))+ ", your turn");
+    UpdateTurnInfo(turn_info);
 }
 
 /*

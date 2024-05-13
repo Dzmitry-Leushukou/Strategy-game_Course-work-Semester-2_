@@ -7,7 +7,7 @@ World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,
              QGraphicsPolygonItem * select_unit,QGraphicsTextItem * block_info,
              QVector<Player*> &players_, QObject*parent):players(players_), QObject(parent)
 {
-    action_button=new Button("⚒️",50,50);
+    action_button=new Button("⚒️",160,50);
     action_button->setPos(-32,-32);
     QObject::connect(action_button,SIGNAL(clicked()),this,SLOT(action()));
     scene->addItem(action_button);

@@ -34,7 +34,7 @@ public:
     void updateTexture();
     void change(int id);
     void build_city();
-
+    bool isCity();
     //getters
     std::string get_square_info();
     short getHeight() const;
@@ -64,7 +64,7 @@ private:
     short int id;
     short int resource;//0 - nothing 1 - wheat 2 - stone 3 - steal 4 - fish
     int** height_map;
-    city * City=new city();
+    city * City=nullptr;
 };
 
 #endif // BLOCK_H

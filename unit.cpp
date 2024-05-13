@@ -133,7 +133,7 @@ void Unit::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         qDebug()<<(Game::whosTurn)%4+1<<" "<<owner;
         if(Game::whosTurn+1==owner)
-            action_button->setPos(1441,600);
+            action_button->setPos(1441,740);
         else
             action_button->setPos(-32,-32);
         select_block->setPos(-32,-32);
@@ -168,8 +168,14 @@ void Unit::action()
     switch(id)
     {
     case 3:
+        if(World::choosed_block->isCity())
+        {
+            QMessageBox::warning(0,"Error","You can't place city these");
+            return;
+        }
         World::choosed_block->build_city();
-
+        select->setPos(-32,-32);
+        action_button->setPos(-32,-32);
         break;
     }
 }
