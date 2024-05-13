@@ -2,7 +2,9 @@
 #include "game.h"
 
 Block * World::choosed_block=nullptr;
-
+std::pair<int,int> **World::map=nullptr;
+QVector<QVector<int>>World::owners;
+QList<QList<Block*>>World::blocks;
 World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,
              QGraphicsPolygonItem * select_unit,QGraphicsTextItem * block_info,
              QVector<Player*> &players_, QObject*parent):players(players_), QObject(parent)
@@ -19,9 +21,14 @@ World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,
     gen.seed(time(0));
 
     blocks.resize(1440/32);
+    owners.resize(1440/32);
     for(int i=0;i<1440/32;i++)
+    {
         blocks[i].resize(896/32);
-
+        owners[i].resize(896/32);
+        for(int j=0;j<896/32;j++)
+            owners[i][j]=-1;
+    }
     this->block_info=block_info;
     placeBlocks();
     normalise_world();

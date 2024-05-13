@@ -41,13 +41,15 @@ public:
 
     //Fields
     static Block * choosed_block;
-
+    static std::pair<int,int> **map;
+    static QVector<QVector<int>>owners;
+    static QList<QList<Block*>>blocks;
 public slots:
     void action();
 private:
 
     QVector<Player*>& players;
-    QList<QList<Block*>>blocks;
+
     //QList<city*>cities;
     QGraphicsScene *scene;
     QWidget *widget;
@@ -62,7 +64,7 @@ private:
 
     int **unitstay;
     int** height_map;
-    std::pair<int,int> **map;
+
     QGraphicsPolygonItem * select_unit;
     const std::string s1[35]={"Eur","As","Got","Wer","Rat","Pol","Akl","Ban","Bel","Rus","Ukr","Pl","Lith","Lath","Garf","Yellow","Plot","Cher","Quar","Wed","Ear","Tir","Unit","Is","And","Sam","Frank","Ger","Hes","Jefr","Ken","Link","Zyran","Xer","Cosc"};
     const std::string s2[35]={"ope","asia","stone","ella","anna","land","easy","elly","yard","york","unia","uran","anian","org","onion","axia","asird","arc","ocraine","erid","opposite","ugoria","agoria","egoria","ugonist","agonist","yniel","uniel","enie","uland","eland","early","airan","ure","ore"};

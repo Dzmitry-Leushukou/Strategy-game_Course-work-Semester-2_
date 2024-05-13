@@ -3,6 +3,7 @@
 
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
+#include <queue>
 
 #pragma once
 
@@ -12,8 +13,10 @@ public:
     city(QGraphicsItem *parent=NULL);
 
     void create(short);
-    void change_owner(short);
+    //void change_owner(short);
     void destroy();
+
+    void check();
 
     bool getIs_city() const;
     short getOwner() const;
@@ -23,12 +26,16 @@ public:
 
     int getGrow_from() const;
 
+
+    void setGrow_from(int newGrow_from);
+
 private:
     bool is_city;
     short owner;
     int level=1;
     int houses=5;
     int grow_from=10;
+
     //bool buildings[];//What was built
     /*
     0 - Builder

@@ -16,7 +16,8 @@ Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGra
     resource=res;
     City=new city();
     City->setPos(pos().x(),pos().y());
-    qDebug()<<City;
+    //City->setPs(pos());
+    //qDebug()<<City;
     //qDebug()<<City;
 
     updateTexture();
@@ -136,7 +137,7 @@ void Block::selectBlock()
 void Block::updateTexture()
 {
 
-    qDebug()<<owner;
+    //qDebug()<<owner<<" "<<id<<" "<<x()<<" "<<y();
     switch(id)
     {
     case 0:
@@ -269,12 +270,22 @@ void Block::build_city()
 {
     scene->removeItem(City);
     City->create(Game::whosTurn%4);
-    //qDebug()<<pos();
+//    qDebug()<<"@"<<pos();
     City->setPos(pos());
+    //City->setPs(pos());
     //qDebug()<<City;
     scene->addItem(City);
 
     owner=Game::whosTurn%4;
+    World::owners[x()/32][y()/32]=owner;
+    City->setGrow_from(0);
+    City->check();
+    City->setGrow_from(0);
+    City->check();
+    City->setGrow_from(0);
+    City->check();
+    City->setGrow_from(0);
+    City->check();
     updateTexture();
 }
 
@@ -320,6 +331,9 @@ std::string Block::get_square_info()
     case 3:
         res+="Iron";
         break;
+    case 4:
+        res+="Fish";
+        break;
     }
 
     res+="\n";
@@ -345,7 +359,7 @@ std::string Block::get_square_info()
         break;
     }
 
-    qDebug()<<City->getIs_city();
+    //qDebug()<<City->getIs_city();
     if(City->getIs_city())
     {
         res+="\n\n=====City  Info=====\nLevel: ";
@@ -358,6 +372,8 @@ std::string Block::get_square_info()
 void Block::setOwner(short newOwner)
 {
     owner = newOwner;
+    World::owners[x()/32][y()/32]=owner;
+    updateTexture();
 }
 
 void Block::setPlayer(Player *newPlayer)
