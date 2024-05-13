@@ -277,6 +277,7 @@ void World::set_player(Player *pl)
 
     select->setPos(-32,-32);
     select_unit->setPos(-32,-32);
+    Block::hideButtons();
 
     for(auto i:pl->getUnits())
         i->setMoves(1);

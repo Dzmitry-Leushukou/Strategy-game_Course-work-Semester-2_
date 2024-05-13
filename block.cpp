@@ -153,10 +153,10 @@ void Block::getInfo()
    //qDebug()<<City->getIs_city();
    if(City->getIs_city())
    {
-       unit1_button->setPos(1441, 690);
-       unit2_button->setPos(1441 + 35 +6, 690);
-       unit3_button->setPos(1441+ 35*2 +6*2, 690);
-       unit4_button->setPos(1441+ 35*3 +18, 690);
+       unit1_button->setPos(1441, 690-288-32-16);
+       unit2_button->setPos(1441 + 35 +6, 690-288-32-16);
+       unit3_button->setPos(1441+ 35*2 +6*2, 690-288-32-16);
+       unit4_button->setPos(1441+ 35*3 +18, 690-288-32-16);
    }
    else
    {
@@ -492,6 +492,14 @@ void Block::create_knight2()
 short Block::getOwner() const
 {
     return owner;
+}
+
+void Block::hideButtons()
+{
+    unit1_button->setPos(-32, -100);
+    unit2_button->setPos(-32, -100);
+    unit3_button->setPos(-32, -100);
+    unit4_button->setPos(-32, -100);
 }
 
 short Block::getHeight() const

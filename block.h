@@ -49,6 +49,7 @@ public:
 
     short getOwner() const;
 
+    static void hideButtons();
 public slots:
     // void HideError();
     // void ShowError();
