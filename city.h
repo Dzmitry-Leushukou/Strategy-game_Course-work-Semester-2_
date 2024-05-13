@@ -21,12 +21,14 @@ public:
     //void build();
     int getLevel() const;
 
+    int getGrow_from() const;
+
 private:
     bool is_city;
     short owner;
     int level=1;
     int houses=5;
-
+    int grow_from=10;
     //bool buildings[];//What was built
     /*
     0 - Builder

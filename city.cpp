@@ -56,3 +56,8 @@ int city::getLevel() const
 {
     return level;
 }
+
+int city::getGrow_from() const
+{
+    return grow_from;
+}

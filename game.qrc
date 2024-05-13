@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/game">
-        <file>resource/Money.png</file>
         <file>resource/water.png</file>
         <file>resource/grass.png</file>
         <file>resource/mountain.png</file>

@@ -20,7 +20,7 @@ Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGra
     //qDebug()<<City;
 
     updateTexture();
-    owner=building=-1;
+    //owner=building=-1;
 }
 
 void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -135,38 +135,126 @@ void Block::selectBlock()
 
 void Block::updateTexture()
 {
-    if(City->getIs_city())
-    {
 
-        //setPixmap(QPixmap(":game/resource/castle.png"));
-        return;
-    }
-
+    qDebug()<<owner;
     switch(id)
     {
     case 0:
         if(resource==0)
-            setPixmap(QPixmap(":game/resource/water.png"));
+            switch(owner)
+            {
+            case 0:
+                setPixmap(QPixmap(":game/resource/water1.png"));
+                break;
+            case 1:
+                setPixmap(QPixmap(":game/resource/water2.png"));
+                break;
+            case 2:
+                setPixmap(QPixmap(":game/resource/water3.png"));
+                break;
+            case 3:
+                setPixmap(QPixmap(":game/resource/water4.png"));
+                break;
+            default:
+                setPixmap(QPixmap(":game/resource/water.png"));
+                break;
+            }
+
+
         if(resource==4)
-            setPixmap(QPixmap(":game/resource/water_fish.png"));
+            switch(owner)
+            {
+            case 0:
+                setPixmap(QPixmap(":game/resource/water_fish1.png"));
+                break;
+            case 1:
+                setPixmap(QPixmap(":game/resource/water_fish2.png"));
+                break;
+            case 2:
+                setPixmap(QPixmap(":game/resource/water_fish3.png"));
+                break;
+            case 3:
+                setPixmap(QPixmap(":game/resource/water_fish4.png"));
+                break;
+            default:
+                setPixmap(QPixmap(":game/resource/water_fish.png"));
+                break;
+            }
         break;
     case 1:
         if(resource==0)
-            setPixmap(QPixmap(":game/resource/grass.png"));
+            switch(owner)
+            {
+            case -1:
+                setPixmap(QPixmap(":game/resource/grass.png"));
+                break;
+            default:
+                setPixmap(QPixmap(QString::fromStdString(":game/resource/grass"+std::to_string(owner+1)+".png")));
+                break;
+            }
         if(resource==1)
-            setPixmap(QPixmap(":game/resource/grass_wheat.png"));
+            switch(owner)
+            {
+            case -1:
+                setPixmap(QPixmap(":game/resource/grass_wheat.png"));
+                break;
+            default:
+                setPixmap(QPixmap(QString::fromStdString(":game/resource/grass_wheat"+std::to_string(owner+1)+".png")));
+                break;
+            }
         if(resource==2)
-            setPixmap(QPixmap(":game/resource/grass_stone.png"));
+            switch(owner)
+            {
+            case -1:
+                setPixmap(QPixmap(":game/resource/grass_stone.png"));
+                break;
+            default:
+                setPixmap(QPixmap(QString::fromStdString(":game/resource/grass_stone"+std::to_string(owner+1)+".png")));
+                break;
+            }
         if(resource==3)
-            setPixmap(QPixmap(":game/resource/grass_iron.png"));
+            switch(owner)
+            {
+            case -1:
+                setPixmap(QPixmap(":game/resource/grass_iron.png"));
+                break;
+            default:
+                setPixmap(QPixmap(QString::fromStdString(":game/resource/grass_iron"+std::to_string(owner+1)+".png")));
+                break;
+            }
         break;
     default:
         if(resource==0)
-            setPixmap(QPixmap(":game/resource/mountain.png"));
+            switch(owner)
+            {
+            case -1:
+                setPixmap(QPixmap(":game/resource/mountain.png"));
+                break;
+            default:
+                setPixmap(QPixmap(QString::fromStdString(":game/resource/mountain"+std::to_string(owner+1)+".png")));
+                break;
+            }
+
         if(resource==2)
-            setPixmap(QPixmap(":game/resource/mountain_stone.png"));
+            switch(owner)
+            {
+            case -1:
+                setPixmap(QPixmap(":game/resource/mountain_stone.png"));
+                break;
+            default:
+                setPixmap(QPixmap(QString::fromStdString(":game/resource/mountain_stone"+std::to_string(owner+1)+".png")));
+                break;
+            }
         if(resource==3)
-            setPixmap(QPixmap(":game/resource/mountain_iron.png"));
+            switch(owner)
+            {
+            case -1:
+                setPixmap(QPixmap(":game/resource/mountain_iron.png"));
+                break;
+            default:
+                setPixmap(QPixmap(QString::fromStdString(":game/resource/mountain_iron"+std::to_string(owner+1)+".png")));
+                break;
+            }
         break;
     }
 }
@@ -185,8 +273,9 @@ void Block::build_city()
     City->setPos(pos());
     //qDebug()<<City;
     scene->addItem(City);
-    updateTexture();
+
     owner=Game::whosTurn%4;
+    updateTexture();
 }
 
 bool Block::isCity()
@@ -260,7 +349,8 @@ std::string Block::get_square_info()
     if(City->getIs_city())
     {
         res+="\n\n=====City  Info=====\nLevel: ";
-        res+=std::to_string(City->getLevel());
+        res+=std::to_string(City->getLevel())+"\n";
+        res+="Grow from: "+std::to_string(City->getGrow_from());
     }
     return res;
 }

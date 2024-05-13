@@ -59,8 +59,8 @@ private:
 
     std::string continent="";
     short int height;
-    short int owner;
-    short int building;
+    short int owner=-1;
+    //short int building;
     short int id;
     short int resource;//0 - nothing 1 - wheat 2 - stone 3 - steal 4 - fish
     int** height_map;
