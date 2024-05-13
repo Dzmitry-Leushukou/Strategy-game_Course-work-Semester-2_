@@ -35,7 +35,7 @@ Game::Game(QWidget *parent)
     scene->addItem(block_info);
 
     res_info=new QGraphicsTextItem();
-    res_info->setPos(1440,610);
+    res_info->setPos(1440,210);
     scene->addItem(res_info);
 
 

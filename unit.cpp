@@ -181,6 +181,17 @@ void Unit::action()
 {
     switch(id)
     {
+    case 0:
+        if(World::choosed_block->getOwner()!=Game::whosTurn%4)
+        {
+            QMessageBox::warning(0,"Error","You can't place building these. You should be owner of this field");
+            return;
+        }
+        actions--;
+        //World::choosed_block->create_building();
+        select->setPos(-32,-32);
+        action_button->setPos(-32,-32);
+        break;
     case 3:
         if(World::choosed_block->isCity())
         {

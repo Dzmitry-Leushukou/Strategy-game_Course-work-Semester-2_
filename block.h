@@ -47,6 +47,8 @@ public:
     void setOwner(short newOwner);
     void setPlayer(Player *newPlayer);
 
+    short getOwner() const;
+
 public slots:
     // void HideError();
     // void ShowError();
