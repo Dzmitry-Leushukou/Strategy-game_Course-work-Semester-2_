@@ -1,7 +1,7 @@
 #include "game.h"
 
 long long Game::whosTurn=0;
-
+long long Game::houses[]={0,0,0,0};
 Game::Game(QWidget *parent)
 {
     players.resize(4);
@@ -67,8 +67,14 @@ Game::Game(QWidget *parent)
 
 }
 
+void Game::turn_update()
+{
+    map->turn_update();
+}
+
 void Game::next_turn()
 {
+
     do{
     whosTurn++;
     //qDebug()<<whosTurn;
@@ -76,22 +82,10 @@ void Game::next_turn()
     }while(players[whosTurn%4]->getLose());
     QMessageBox::information(this,"Turn","Player "+QString::fromStdString(std::to_string(whosTurn%4+1))+ ", your turn");
     UpdateTurnInfo(turn_info);
+    turn_update();
     ShowResourceInfo("Money: "+std::to_string(players[whosTurn%4]->resource_amount[0])+
                      "\nStone: "+std::to_string(players[whosTurn%4]->resource_amount[1])+
                      "\nIron: "+std::to_string(players[whosTurn%4]->resource_amount[2])+
                      "\nWheat: "+std::to_string(players[whosTurn%4]->resource_amount[3])+
                      "\nFish: "+std::to_string(players[whosTurn%4]->resource_amount[4]),res_info);
 }
-
-/*
-void Game::StartGame()
-{
-    //while(!enemies.empty())
-
-        for(whosTurn=0;;whosTurn++)
-        {
-
-        }
-
-}
-*/

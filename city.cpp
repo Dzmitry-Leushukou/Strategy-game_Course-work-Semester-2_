@@ -15,6 +15,7 @@ void city::create(short owner)
 {
     is_city=true;
     this->owner=owner;
+    level=1;
     switch(owner)
     {
     case 0:
@@ -31,6 +32,7 @@ void city::create(short owner)
         break;
     }
     //World::owners[x()/32][y()/32]=owner;
+    Game::houses[Game::whosTurn%4]+=5;
 }
 
 
@@ -38,12 +40,13 @@ void city::create(short owner)
 void city::destroy()
 {
     is_city=false;
+    Game::houses[Game::whosTurn%4]+=5;
     owner=-1;
 }
 
 void city::check()
 {
-    if(grow_from<=0&&level<houses)
+    if(grow_from<=0&&Game::houses[Game::whosTurn%4]--)
     {
         bool used[1440/32][896/32];
 
@@ -66,7 +69,8 @@ void city::check()
                 //qDebug()<<"!"<<now1;
                 World::owners[now1.first][now1.second]=owner;
                 World::blocks[now1.first][now1.second]->setOwner(owner);
-                grow_from=10;
+                grow_from=10-16/level;
+                level++;
                 return;
             }
             for(int i=-1;i<=1;i++)
@@ -91,8 +95,9 @@ void city::check()
                         q.push(now);
                     }
                 }
+
         }
-        //q.clear();
+
     }
 }
 
@@ -126,6 +131,12 @@ void city::build(int id)
         build_finish=5;
         break;
     }
+    build_finish-=level/10;
+}
+
+void city::addHp()
+{
+    hp+=75;
 }
 
 bool city::getIs_city() const
@@ -162,4 +173,9 @@ int city::getBuild_id() const
 int city::getBuild_finish() const
 {
     return build_finish;
+}
+
+int city::getHp() const
+{
+    return hp;
 }

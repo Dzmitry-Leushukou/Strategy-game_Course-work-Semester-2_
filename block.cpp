@@ -8,6 +8,11 @@ Button * Block::unit4_button=nullptr;
 Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGraphicsPolygonItem *select,QGraphicsPolygonItem *unit,
              int** height_map,QGraphicsTextItem*block_info,QGraphicsPixmapItem *parent, QObject *parent2):QGraphicsPixmapItem(parent), QObject(parent2)
 {
+
+    building_texture=new QGraphicsPixmapItem(parent);
+    building_texture->setFlag(ItemIsSelectable, false);
+    building_texture->setFlag(ItemIsMovable, false);
+
     this->block_info=block_info;
     this->height_map=height_map;
     //this->player=pl;
@@ -335,6 +340,34 @@ bool Block::isCity()
     return City->getIs_city();
 }
 
+void Block::create_building()
+{
+    building++;
+    if(isCity())
+    {
+        City->addHp();
+        return;
+    }
+
+    switch(resource)
+    {
+    case 4:
+        building_texture->setPixmap(QPixmap(":game/resource/fishing.png"));
+        Game::houses[Game::whosTurn%4]+=1;
+        break;
+    case 1:
+        building_texture->setPixmap(QPixmap(":game/resource/farm.png"));
+        Game::houses[Game::whosTurn%4]+=2;
+        break;
+    default:
+        building_texture->setPixmap(QPixmap(":game/resource/mine.png"));
+        break;
+    }
+
+
+
+}
+
 std::string Block::get_square_info()
 {
     std::string res="=====Block info=====\n";
@@ -405,8 +438,8 @@ std::string Block::get_square_info()
     {
         res+="\n\n=====City  Info=====\nLevel: ";
         res+=std::to_string(City->getLevel())+"\n";
-        res+="Grow from: "+std::to_string(City->getGrow_from());
-        //qDebug()<<"="<<City;
+        res+="Grow from: "+std::to_string(City->getGrow_from())+"\n Walls LVL:"+std::to_string(building)+"\nHP"+std::to_string(City->getHp());
+        //<<"="<<City;
         if(City->getOwner()==Game::whosTurn%4&&City->getBuild_id()!=4)
         {
             res+="\nBuild: ";
@@ -452,7 +485,7 @@ void Block::create_builder()
         return;
     }
     City->build(0);
-    //qDebug()<<"!"<<City->getBuild_id();
+    //<<"!"<<City->getBuild_id();
     getInfo();
 }
 
@@ -487,6 +520,16 @@ void Block::create_knight2()
     }
     City->build(3);
     getInfo();
+}
+
+short Block::getResource() const
+{
+    return resource;
+}
+
+short Block::getBuilding() const
+{
+    return building;
 }
 
 short Block::getOwner() const

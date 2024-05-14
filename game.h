@@ -21,11 +21,12 @@ public:
     Game(QWidget* parent=NULL);
 
     //Methods
-
+    void turn_update();
     //Attributes
 
     //Fields
     static long long whosTurn;
+    static long long houses[];
     //Slots
 public slots:
     void next_turn();

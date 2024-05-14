@@ -64,5 +64,12 @@
         <file>resource/water_fish2.png</file>
         <file>resource/water_fish3.png</file>
         <file>resource/water_fish4.png</file>
+        <file>resource/farm.png</file>
+        <file>resource/fishing.png</file>
+        <file>resource/grass_iron1.png</file>
+        <file>resource/grass_iron2.png</file>
+        <file>resource/grass_iron3.png</file>
+        <file>resource/grass_iron4.png</file>
+        <file>resource/mine.png</file>
     </qresource>
 </RCC>

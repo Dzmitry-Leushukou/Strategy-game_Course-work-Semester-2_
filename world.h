@@ -35,7 +35,7 @@ public:
     Block* getBlock(int,int);
     int** getUnitstay();
     std::pair<int,int> **getMap();
-
+    void turn_update();
     //Setters
 
 

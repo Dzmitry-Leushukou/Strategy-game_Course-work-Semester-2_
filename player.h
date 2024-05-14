@@ -15,6 +15,7 @@ public:
     bool getLose() const;
     Unit* getUnit(QPointF);
     QVector<int>resource_amount={0,0,0,0,0};
+
 private:
     QList<Unit*>units;
     QGraphicsScene *scene;
@@ -25,6 +26,8 @@ private:
 
     int number;
     bool lose=false;
+
+    int houses=0;
 
     Button * action_button;
 

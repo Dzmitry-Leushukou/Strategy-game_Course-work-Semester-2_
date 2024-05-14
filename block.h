@@ -37,7 +37,7 @@ public:
     void change(int id);
     void build_city();
     bool isCity();
-
+    void create_building();
     //getters
     std::string get_square_info();
     short getHeight() const;
@@ -50,6 +50,10 @@ public:
     short getOwner() const;
 
     static void hideButtons();
+    short getBuilding() const;
+
+    short getResource() const;
+
 public slots:
     // void HideError();
     // void ShowError();
@@ -64,6 +68,7 @@ private:
     QGraphicsPolygonItem *unit;
     QGraphicsTextItem * block_info;
 
+    QGraphicsPixmapItem * building_texture;
 
     Player* player;
 
@@ -74,8 +79,11 @@ private:
     short int id;
     short int resource;//4
     int** height_map;
+
     city * City=nullptr;
 
+
+    short building=0;
     //Buttons
     static Button * unit1_button;
     static Button * unit2_button;

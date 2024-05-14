@@ -16,7 +16,7 @@ public:
     void destroy();
     void check();
     void build(int id);
-
+    void addHp();
     //Getters
     bool getIs_city() const;
     short getOwner() const;
@@ -30,11 +30,13 @@ public:
 
     int getBuild_finish() const;
 
+    int getHp() const;
+
 private:
     bool is_city;
     short owner;
     int level=1;
-    int houses=5;
+    int hp=100;
     int grow_from=10;
 
     //bool buildings[];//What was built

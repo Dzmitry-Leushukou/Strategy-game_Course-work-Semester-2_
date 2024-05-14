@@ -182,13 +182,23 @@ void Unit::action()
     switch(id)
     {
     case 0:
+        if(World::choosed_block->getResource()==0)
+        {
+            QMessageBox::warning(0,"Error","This field haven't resource to collect");
+            return;
+        }
         if(World::choosed_block->getOwner()!=Game::whosTurn%4)
         {
             QMessageBox::warning(0,"Error","You can't place building these. You should be owner of this field");
             return;
         }
+        if(!((World::choosed_block->getBuilding()<=3&&World::choosed_block->isCity())||(World::choosed_block->getBuilding()<=1&&!World::choosed_block->isCity())))
+        {
+            QMessageBox::warning(0,"Error","You build this yet. Find another place");
+            return;
+        }
         actions--;
-        //World::choosed_block->create_building();
+        World::choosed_block->create_building();
         select->setPos(-32,-32);
         action_button->setPos(-32,-32);
         break;

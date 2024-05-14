@@ -10,7 +10,7 @@ Player::Player(QGraphicsScene *&scene, int ** used,  std::pair<int,int>** map, Q
     Unit* u=new Unit(scene,used,map,select,select_block,action_button,n);
     u->Spawn(3);
     number=n;
-    qDebug()<<u;
+    //qDebug()<<u;
     units.push_back(u);
     //qDebug()<<units.size();
     scene->addItem(u);
@@ -74,4 +74,6 @@ Unit *Player::getUnit(QPointF pos)
         }
     }
 }
+
+
 

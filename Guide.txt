@@ -21,7 +21,7 @@ All resources you can get by special fields on game field.
 
 
 
-===Сity===
+===Сities and units===
 
 You can create new units in cities:
 0 - Builder

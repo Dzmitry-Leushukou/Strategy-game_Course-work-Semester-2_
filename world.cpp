@@ -283,6 +283,7 @@ void World::set_player(Player *pl)
         i->setMoves(1);
 
     resource_amount=pl->resource_amount;
+    //Game::houses=pl->getHouses();
 }
 
 Block *World::getBlock(int x, int y)
@@ -300,6 +301,20 @@ int** World::getUnitstay()
 std::pair<int, int> **World::getMap()
 {
     return map;
+}
+
+void World::turn_update()
+{
+    for(auto& i:blocks)
+    {
+        for(auto& j:i)
+        {
+            if(j->getOwner()==Game::whosTurn%4)
+            {
+                //j->tick(); //Todo
+            }
+        }
+    }
 }
 
 void World::action()//Todo
