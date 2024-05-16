@@ -207,7 +207,7 @@ void Unit::action()
             QMessageBox::warning(0,"Error","You can't place building these. You should be owner of this field");
             return;
         }
-        if(!((World::choosed_block->getBuilding()<=3&&World::choosed_block->isCity())||(World::choosed_block->getBuilding()<=1&&!World::choosed_block->isCity())))
+        if(!((World::choosed_block->getBuilding()<=3&&World::choosed_block->isCity())||(World::choosed_block->getBuilding()==0&&!World::choosed_block->isCity())))
         {
             QMessageBox::warning(0,"Error","You build this yet. Find another place");
             return;
