@@ -81,10 +81,11 @@ void World::placeBlocks()
             height_map[i][j]=block->getHeight();
 
             block->setPos(32*i,32*j);
-            block->building_pos(QPointF(32*i,32*j));
+
             blocks[i][j]=block;
             //qDebug()<<block;
             scene->addItem(block);
+            block->building_pos(QPointF(32*i,32*j));
         }
 
     }
@@ -346,6 +347,8 @@ void World::turn_update()
     {
         i->setMoves(1);
     }
+
+    update_resource();
 }
 
 void World::action()//Todo

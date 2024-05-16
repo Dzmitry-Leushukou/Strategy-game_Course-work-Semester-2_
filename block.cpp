@@ -371,7 +371,7 @@ void Block::create_building()
     }
 
     //building_texture->setPos(pos());
-scene->addItem(building_texture);
+
 
 
 }
@@ -416,7 +416,8 @@ void Block::stop_build()
 
 void Block::building_pos(QPointF pos)
 {
-                                      building_texture->setPos(pos);
+    building_texture->setPos(pos);
+    scene->addItem(building_texture);
 }
 
 std::string Block::get_square_info()
