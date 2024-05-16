@@ -139,6 +139,12 @@ void city::addHp()
     hp+=75;
 }
 
+short city::try_spawn()
+{
+    if(build_finish!=0||build_id==4)return -1;
+    return build_id;
+}
+
 bool city::getIs_city() const
 {
     return is_city;
@@ -178,4 +184,14 @@ int city::getBuild_finish() const
 int city::getHp() const
 {
     return hp;
+}
+
+void city::setBuild_finish(int newBuild_finish)
+{
+    build_finish = newBuild_finish;
+}
+
+void city::setBuild_id(int newBuild_id)
+{
+    build_id = newBuild_id;
 }

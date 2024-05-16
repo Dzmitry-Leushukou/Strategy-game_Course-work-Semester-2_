@@ -35,7 +35,7 @@ Game::Game(QWidget *parent)
     scene->addItem(block_info);
 
     res_info=new QGraphicsTextItem();
-    res_info->setPos(1440,210);
+    res_info->setPos(1440,240);
     scene->addItem(res_info);
 
 
@@ -74,7 +74,8 @@ void Game::turn_update()
 
 void Game::next_turn()
 {
-
+    map->update_resource();
+    HideBlockInfo(block_info);
     do{
     whosTurn++;
     //qDebug()<<whosTurn;
@@ -88,4 +89,5 @@ void Game::next_turn()
                      "\nIron: "+std::to_string(players[whosTurn%4]->resource_amount[2])+
                      "\nWheat: "+std::to_string(players[whosTurn%4]->resource_amount[3])+
                      "\nFish: "+std::to_string(players[whosTurn%4]->resource_amount[4]),res_info);
+    update();
 }

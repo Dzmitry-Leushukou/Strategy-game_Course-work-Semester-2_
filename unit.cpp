@@ -4,8 +4,8 @@
 #include "world.h"
 //extern long long Game::whosTurn;
 
-Unit::Unit(QGraphicsScene*& scene, int ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *& select,QGraphicsPolygonItem *& select_block, Button *& action_button,int n) {
-    this->scene=scene;
+Unit::Unit(QGraphicsScene*& scene,int ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *& select,QGraphicsPolygonItem *& select_block, Button *& action_button,int n) {
+    //this->scene()=scene;
     owner=n;
     this->used=used;
     this->select_block=select_block;
@@ -14,7 +14,7 @@ Unit::Unit(QGraphicsScene*& scene, int ** used,  std::pair<int,int>** map, QGrap
 
     this->action_button=action_button;
     moves=1;
-    //qDebug()<<"unit:"<<scene;
+
 }
 
 void Unit::Spawn(int id)
@@ -32,12 +32,26 @@ void Unit::Spawn(int id)
     drawUnit();
 }
 
-void Unit::Spawn(int id, int x, int y)
+void Unit::Spawn(int id, double x, double y)
 {
     this->id=id;
+    qDebug()<<"id"<<id;
+    if(id==1)
+        id=3;
+    else
+        if(id==2)
+    {
+        id=1;
+    }
+    else if(id==3)
+    {
+        id=2;
+    }
     SetAttributes();
-    setPos(x*32,y*32);
+    setPos(x,y);
+    used[(int)(x-11/2)/32][(int)(y-11/2)/32]=owner;
     drawUnit();
+    qDebug()<<scene();
 }
 
 void Unit::drawUnit()
@@ -85,16 +99,16 @@ void Unit::drawUnit()
         switch(owner)
         {
         case 1:
-            setPixmap(QPixmap(":game/resource/knight2.png"));
+            setPixmap(QPixmap(":game/resource/knight_2.png"));
             break;
         case 2:
-            setPixmap(QPixmap(":game/resource/knight22.png"));
+            setPixmap(QPixmap(":game/resource/knight_22.png"));
             break;
         case 3:
-            setPixmap(QPixmap(":game/resource/knight23.png"));
+            setPixmap(QPixmap(":game/resource/knight_23.png"));
             break;
         case 4:
-            setPixmap(QPixmap(":game/resource/knight24.png"));
+            setPixmap(QPixmap(":game/resource/knight_24.png"));
             break;
         }
         break;
@@ -142,11 +156,11 @@ void Unit::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if(event->buttons() & Qt::LeftButton)//Select unit
     {
         //<<select;
-
-        select->setPos(x(),y());
+        qDebug()<<pos();
+        select->setPos(pos());
 
         //qDebug()<<(Game::whosTurn)%4+1<<" "<<owner;
-        if(Game::whosTurn+1==owner)
+        if((Game::whosTurn)%4+1==owner)
             action_button->setPos(1441,730);
         else
             action_button->setPos(-32,-32);
@@ -179,6 +193,7 @@ void Unit::setMoves(int newMoves)
 
 void Unit::action()
 {
+    //qDebug()<<"unit:"<<this->scene();
     switch(id)
     {
     case 0:
@@ -198,6 +213,8 @@ void Unit::action()
             return;
         }
         actions--;
+
+        //qDebug()<<(World::choosed_block);
         World::choosed_block->create_building();
         select->setPos(-32,-32);
         action_button->setPos(-32,-32);
@@ -213,6 +230,19 @@ void Unit::action()
         select->setPos(-32,-32);
         action_button->setPos(-32,-32);
         break;
+
+    default:
+        if(World::choosed_block->isCity())
+        {
+            QMessageBox::warning(0,"Error","You can't place city these");
+            return;
+        }
+        actions--;
+        World::choosed_block->build_city();
+        select->setPos(-32,-32);
+        action_button->setPos(-32,-32);
+        break;
+
     }
 }
 

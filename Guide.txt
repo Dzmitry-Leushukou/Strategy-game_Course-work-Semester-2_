@@ -19,6 +19,7 @@ Every player has 5 types of resources:
 1 also need for upgrade units.
 All resources you can get by special fields on game field.
 
+Builders create buildings from resources. When builders built mine for iron. It will get Iron while you don't studying special field on your science tree.
 
 
 ===Сities and units===

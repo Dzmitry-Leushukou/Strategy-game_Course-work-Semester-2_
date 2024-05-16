@@ -38,6 +38,9 @@ public:
     void build_city();
     bool isCity();
     void create_building();
+    short tick();
+    void stop_build();
+    void building_pos(QPointF pos);
     //getters
     std::string get_square_info();
     short getHeight() const;

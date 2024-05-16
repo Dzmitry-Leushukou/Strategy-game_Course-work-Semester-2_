@@ -9,9 +9,7 @@ Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGra
              int** height_map,QGraphicsTextItem*block_info,QGraphicsPixmapItem *parent, QObject *parent2):QGraphicsPixmapItem(parent), QObject(parent2)
 {
 
-    building_texture=new QGraphicsPixmapItem(parent);
-    building_texture->setFlag(ItemIsSelectable, false);
-    building_texture->setFlag(ItemIsMovable, false);
+
 
     this->block_info=block_info;
     this->height_map=height_map;
@@ -25,7 +23,15 @@ Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGra
     resource=res;
     City=new city();
     City->setPos(pos().x(),pos().y());
+    //qDebug()<<City;
     updateTexture();
+
+
+    building_texture=new QGraphicsPixmapItem(parent);
+    building_texture->setFlag(ItemIsSelectable, false);
+    building_texture->setFlag(ItemIsMovable, false);
+    building_texture->setPos(pos().x(),pos().y());
+    //qDebug()<<building_texture;
 
 
     unit1_button=new Button("🔨",35,35);
@@ -142,7 +148,7 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 //unit_error->setPos(1440/2-50,3);
                 QMessageBox::warning(widget,"Error","This unit have no steps on this turn");
             }
-        }else
+        }
             getInfo();
 
     }
@@ -364,8 +370,53 @@ void Block::create_building()
         break;
     }
 
+    //building_texture->setPos(pos());
+scene->addItem(building_texture);
 
 
+}
+
+short Block::tick()
+{
+    if(City->getIs_city())
+    {
+        City->setGrow_from(std::max(0,City->getGrow_from()-4));
+        City->check();
+
+        City->setBuild_finish(std::max(0,City->getBuild_finish()-4));
+        return City->try_spawn();
+    }
+    else
+        if(building!=0)
+    {
+        switch(resource)
+        {
+        case 1:
+            World::resource_amount[3]++;
+            break;
+        case 2:
+            World::resource_amount[1]++;
+            break;
+        case 3:
+            World::resource_amount[2]++;
+            break;
+        case 4:
+            World::resource_amount[4]++;
+            break;
+        }
+    }
+    return -1;
+}
+
+void Block::stop_build()
+{
+                         City->setBuild_finish(0);
+    City->setBuild_id(4);
+}
+
+void Block::building_pos(QPointF pos)
+{
+                                      building_texture->setPos(pos);
 }
 
 std::string Block::get_square_info()

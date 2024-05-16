@@ -20,7 +20,7 @@ class World : public QObject
 public:
     //QTimer * timer;
     //Constructors
-    World(QGraphicsScene*, QWidget*,QGraphicsPolygonItem*,QGraphicsPolygonItem *, QGraphicsTextItem *,QVector<Player*> &players_,QObject *parent = nullptr);
+    World(QGraphicsScene*&, QWidget*,QGraphicsPolygonItem*&,QGraphicsPolygonItem *&, QGraphicsTextItem *&,QVector<Player*> &players_,QObject *parent = nullptr);
 
     //Methods
     void placeBlocks();
@@ -30,6 +30,8 @@ public:
     void contenent_name_creator();
     void contenent_distribution();
     void set_player(Player * pl);
+    void update_resource();
+    bool try_spawn(double x, double y, int id);
     //Getters
     QList<Block*>getBlocks();
     Block* getBlock(int,int);
@@ -45,11 +47,12 @@ public:
     static QVector<QVector<int>>owners;
     static QList<QList<Block*>>blocks;
     static QVector<int> resource_amount;
+
 public slots:
     void action();
 private:
+QVector<Player*>& players;
 
-    QVector<Player*>& players;
 
     //QList<city*>cities;
     QGraphicsScene *scene;

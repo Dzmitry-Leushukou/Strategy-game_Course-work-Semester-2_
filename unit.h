@@ -15,7 +15,7 @@ class Unit : public QGraphicsPixmapItem
 public:
     Unit(QGraphicsScene*&, int**, std::pair<int,int>** map, QGraphicsPolygonItem *&,QGraphicsPolygonItem *&,Button *&,int);
     void Spawn(int);
-    void Spawn(int,int x,int y);
+    void Spawn(int,double x,double y);
     void drawUnit();
     void SetAttributes();
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -36,7 +36,7 @@ private:
     int moves;
     int owner;
     //int moves;
-    QGraphicsScene* scene;
+    //QGraphicsScene* scene;
     int **used;
     std::pair<int,int> **map;
     QGraphicsPolygonItem * select;

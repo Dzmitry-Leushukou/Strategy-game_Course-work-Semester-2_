@@ -6,8 +6,8 @@ std::pair<int,int> **World::map=nullptr;
 QVector<QVector<int>>World::owners;
 QList<QList<Block*>>World::blocks;
 QVector<int> World::resource_amount={0,0,0,0,0};
-World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,
-             QGraphicsPolygonItem * select_unit,QGraphicsTextItem * block_info,
+World::World(QGraphicsScene*& scene, QWidget* w, QGraphicsPolygonItem *& select,
+             QGraphicsPolygonItem *& select_unit,QGraphicsTextItem *& block_info,
              QVector<Player*> &players_, QObject*parent):players(players_), QObject(parent)
 {
     action_button=new Button("⚒️",160,50);
@@ -41,7 +41,7 @@ World::World(QGraphicsScene* scene, QWidget* w, QGraphicsPolygonItem * select,
 
     //this->players=players;
     for(int i=0;i<4;i++){
-        players[i]=new Player(scene,getUnitstay(), getMap(),select_unit,select,action_button,i+1);
+        players[i]=new Player(scene,getUnitstay(), getMap(),select_unit,select,action_button,i);
         //qDebug()<<players_[i]<<" "<<this->players[i];
     }
 
@@ -81,6 +81,7 @@ void World::placeBlocks()
             height_map[i][j]=block->getHeight();
 
             block->setPos(32*i,32*j);
+            block->building_pos(QPointF(32*i,32*j));
             blocks[i][j]=block;
             //qDebug()<<block;
             scene->addItem(block);
@@ -286,6 +287,25 @@ void World::set_player(Player *pl)
     //Game::houses=pl->getHouses();
 }
 
+void World::update_resource()
+{
+    players[Game::whosTurn%4]->resource_amount=resource_amount;
+}
+
+bool  World::try_spawn(double x, double y, int id)
+{
+    //qDebug()<<x<<" "<<y<<" "<<id<<" Try";
+    if(id==-1)return false;
+    x=(int)(x/32);
+    y=(int)(y/32);
+    x*=32;
+    y*=32;
+    x+=+11/2;
+    y+=+11/2;
+
+    return players[Game::whosTurn%4]->Spawn(x,y,id);
+}
+
 Block *World::getBlock(int x, int y)
 {
     x/=32;
@@ -311,34 +331,52 @@ void World::turn_update()
         {
             if(j->getOwner()==Game::whosTurn%4)
             {
-                //j->tick(); //Todo
+                if(try_spawn(j->pos().x(),j->pos().y(),j->tick()))
+                {
+                    j->stop_build();
+                    //qDebug()<<"%"<<scene->items().front();
+                    //scene->items().pop_back();
+                }
             }
         }
+    }
+    action_button->setPos(-1900,-100);
+
+    for(auto& i:players[Game::whosTurn%4]->getUnits())
+    {
+        i->setMoves(1);
     }
 }
 
 void World::action()//Todo
 {
-
-    QPointF  position= players[Game::whosTurn]->getUnit(select_unit->pos())->pos();
+    //qDebug()<<"WORLD"<<scene;
+    QPointF  position= players[Game::whosTurn%4]->getUnit(select_unit->pos())->pos();
 
     choosed_block=getBlock(((int)position.x()/32)*32,((int)position.y()/32)*32);
-    players[Game::whosTurn]->getUnit(select_unit->pos())->action();
-
-    //qDebug()<<choosed_block;
-    int ind=0;
-    for(auto& i:players[Game::whosTurn]->getUnits())
+    players[Game::whosTurn%4]->getUnit(select_unit->pos())->action();
+/*
+    for(auto& i:players[Game::whosTurn%4]->getUnits())
+    {
+         qDebug()<<i;
+    }
+*/
+  int ind=0;
+    for(auto& i:players[Game::whosTurn%4]->getUnits())
     {
         if(i->pos()==position&&i->getActions()==0)
         {
+            //qDebug()<<i;
             scene->removeItem(i);
-            players[Game::whosTurn]->getUnits().removeAt(ind);
-            qDebug()<<"Remove unit";
+            players[Game::whosTurn%4]->del_unit(ind);
+            //for(auto& j:)
+            //qDebug()<<"Remove unit";
             select_unit->setPos(-32,-32);
             return;
         }
         ind++;
     }
 
+//    qDebug()<<"///////////";
 
 }

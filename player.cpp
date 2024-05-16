@@ -1,21 +1,24 @@
 #include "player.h"
+#include "game.h"
 //QVector<int> Player::resource_amount={0,0,0,0,0};
-Player::Player(QGraphicsScene *&scene, int ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *select,QGraphicsPolygonItem *select_block,Button *& action_button,int n)
+Player::Player(QGraphicsScene *&scene, int ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *&select,QGraphicsPolygonItem *&select_block,Button *& action_button,int n)
 {
     this->action_button=action_button;
     this->scene=scene;
     this->used=used;
     this->map=map;
     this->select_block=select_block;
-    Unit* u=new Unit(scene,used,map,select,select_block,action_button,n);
-    u->Spawn(3);
-    number=n;
+    this->select=select;
+    //number=n;
     //qDebug()<<u;
-    units.push_back(u);
-    //qDebug()<<units.size();
-    scene->addItem(u);
+    units.push_back(new Unit(scene,used,map,select,select_block,action_button,n+1));
+    units.back()->Spawn(3);
+    //qDebug()<<"Player:"<<scene;
+    scene->addItem(units.back());
 
+    //units.back()->setScene();
     //resource_amount.resize(5);
+    qDebug()<<"C:"<<select;
 }
 
 QList<Unit *> Player::getUnits() const
@@ -38,7 +41,7 @@ bool Player::move_unit(QPointF pos, int x1, int y1)
         if(units[i]->pos()==pos)
         {
             //qDebug()<<"Found unit:"<<x1<<" "<<y1;
-            qDebug()<<units[i]->pos();
+            //qDebug()<<units[i]->pos();
             //units[i]->move(x1,y1);
 
             if(units[i]->getMoves()==0||used[x1/32][y1/32]==true)return false;
@@ -75,5 +78,39 @@ Unit *Player::getUnit(QPointF pos)
     }
 }
 
+bool Player::Spawn(double x, double y, int id)
+{
+    for(auto& i:units)
+    {
+        //qDebug()<<i->pos()<<" == "<<QPointF(x,y);
+        if(i->pos()==QPointF(x,y))
+            return false;
+    }
 
+    //qDebug()<<select;
+    units.push_back(new Unit(scene,used,map,select,select_block,action_button,Game::whosTurn%4+1));
+
+    //qDebug()<<"SPAWN";
+    units.back()->Spawn(id,x,y);
+    //qDebug()<<units.back();
+    scene->addItem(units.back());
+    //qDebug()<<scene->items().front();
+    //scene->update();
+    return true;
+}
+
+void Player::del_unit(int ind)
+{
+    //delete units[ind];
+    //units[ind] =nullptr;
+
+units.removeAt(ind);
+}
+/*
+void Player::try_to_spawn()
+{
+
+}
+
+*/
 
