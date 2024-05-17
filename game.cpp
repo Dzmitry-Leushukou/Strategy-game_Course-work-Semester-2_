@@ -5,6 +5,12 @@ long long Game::houses[]={0,0,0,0};
 QVector<Player *>Game::players;
 Game::Game(QWidget *parent)
 {
+
+    whosTurn=0;
+    houses[0]=0;
+    houses[1]=0;
+    houses[2]=0;
+    houses[3]=0;
     players.resize(4);
 
     //set up the screen

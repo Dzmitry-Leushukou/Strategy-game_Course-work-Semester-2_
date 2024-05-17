@@ -10,7 +10,10 @@ Block::Block(short int id, short int res, QWidget* w,QGraphicsScene *&scene,QGra
 {
 
 
-
+    unit1_button=nullptr;
+    unit2_button=nullptr;
+    unit3_button=nullptr;
+    unit4_button=nullptr;
     this->block_info=block_info;
     this->height_map=height_map;
     //this->player=pl;

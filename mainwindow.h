@@ -24,7 +24,6 @@ public:
     ~MainWindow();
 
     void log(std::string s);
-    static void showMainWindow();
 private slots:
     void on_PlayButton_clicked();
 
