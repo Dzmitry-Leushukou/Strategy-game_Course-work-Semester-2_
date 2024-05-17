@@ -3,9 +3,8 @@
 
 #include <QMainWindow>
 
-//#include "gamewindow.h"
 #include "game.h"
-
+#include "button.h"
 
 #pragma once
 
@@ -20,11 +19,12 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    //MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
     void log(std::string s);
-
+    static void showMainWindow();
 private slots:
     void on_PlayButton_clicked();
 

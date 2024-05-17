@@ -163,7 +163,12 @@ void Player::del_unit(int ind)
     //delete units[ind];
     //units[ind] =nullptr;
 
-units.removeAt(ind);
+    units.removeAt(ind);
+}
+
+void Player::setLose(bool newLose)
+{
+    lose = newLose;
 }
 /*
 void Player::try_to_spawn()

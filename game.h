@@ -31,6 +31,10 @@ public:
     //Slots
 public slots:
     void next_turn();
+    void giveUp();
+    void openMain();
+signals:
+    void mainWindow();
 private:
     QGraphicsScene* scene;
     QGraphicsPolygonItem* select_block;
@@ -40,10 +44,11 @@ private:
     QGraphicsTextItem *res_info;
 
     Button *skip_button;
+    Button *give_up;
 
     World* map;
 
-
+    int alive=4;
 
 };
 

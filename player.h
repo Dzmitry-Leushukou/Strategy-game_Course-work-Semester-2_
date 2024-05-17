@@ -19,6 +19,8 @@ public:
     bool Spawn(double x,double y,int id);
 
     void del_unit(int);
+    void setLose(bool newLose);
+
 private:
     QList<Unit*>units;
     QGraphicsScene *scene;

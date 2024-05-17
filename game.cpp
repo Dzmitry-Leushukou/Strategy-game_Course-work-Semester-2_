@@ -66,6 +66,11 @@ Game::Game(QWidget *parent)
                          "\nWheat: "+std::to_string(players[whosTurn%4]->resource_amount[3])+
                          "\nFish: "+std::to_string(players[whosTurn%4]->resource_amount[4]),res_info);
 
+    give_up=new Button("Give Up",160,50);
+    give_up->setPos(1440,616);
+    connect(give_up,SIGNAL(clicked()),this,SLOT(giveUp()));
+    scene->addItem(give_up);
+
 }
 
 void Game::turn_update()
@@ -75,6 +80,7 @@ void Game::turn_update()
 
 void Game::next_turn()
 {
+
     map->update_resource();
     HideBlockInfo(block_info);
     do{
@@ -91,4 +97,44 @@ void Game::next_turn()
                      "\nWheat: "+std::to_string(players[whosTurn%4]->resource_amount[3])+
                      "\nFish: "+std::to_string(players[whosTurn%4]->resource_amount[4]),res_info);
     update();
+    if(alive==1)//Win
+    {
+
+        //setScene();
+        //hide();
+        scene->clear();
+        scene->setSceneRect(0,0,800,600);
+        setFixedSize(800,600);
+        QGraphicsTextItem * info=new QGraphicsTextItem(QString::fromStdString("Player "+std::to_string(whosTurn%4+1)+" WIN!"));
+        info->setPos(360,270);
+        if(Game::whosTurn%4==0)
+            info->setDefaultTextColor(Qt::red);
+        if(Game::whosTurn%4==1)
+            info->setDefaultTextColor(Qt::blue);
+        if(Game::whosTurn%4==2)
+            info->setDefaultTextColor(Qt::green);
+        if(Game::whosTurn%4==3)
+            info->setDefaultTextColor(Qt::yellow);
+
+        scene->addItem(info);
+        Button * main=new Button("Go to main menu",800,50);
+        //main->setPos(600,200);
+        connect(main,SIGNAL(clicked()),this,SLOT(openMain()));
+        scene->addItem(main);
+        return;
+    }
+
+}
+
+void Game::giveUp()
+{
+    players[whosTurn%4]->setLose(true);
+    alive--;
+    next_turn();
+}
+
+void Game::openMain()
+{
+    this->close();
+    emit mainWindow();
 }
