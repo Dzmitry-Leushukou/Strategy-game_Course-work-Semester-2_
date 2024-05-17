@@ -158,7 +158,7 @@ void Block::getInfo()
 {
    add_log("Get info "+std::to_string(x()/32)+" "+std::to_string(y()/32));
    //QMessageBox::about(widget,"Square info", QString::fromStdString(get_square_info()));
-   qDebug()<<"Show info for "<<pos();
+   //qDebug()<<"Show info for "<<pos();
    ShowBlockInfo(get_square_info(),block_info);
 
    //qDebug()<<City->getIs_city();
@@ -572,6 +572,11 @@ void Block::create_knight2()
     }
     City->build(3);
     getInfo();
+}
+
+short Block::getId() const
+{
+    return id;
 }
 
 short Block::getResource() const

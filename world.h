@@ -32,6 +32,7 @@ public:
     void set_player(Player * pl);
     void update_resource();
     bool try_spawn(double x, double y, int id);
+    void dfs(short, short,short);
     //Getters
     QList<Block*>getBlocks();
     Block* getBlock(int,int);
@@ -65,6 +66,8 @@ QVector<Player*>& players;
 
     int **unitstay;
     int** height_map;
+    short visited[1440/32][896/32];
+    short kol[1440/32*896/32];
 
     QGraphicsPolygonItem * select_unit;
     const std::string s1[35]={"Eur","As","Got","Wer","Rat","Pol","Akl","Ban","Bel","Rus","Ukr","Pl","Lith","Lath","Garf","Yellow","Plot","Cher","Quar","Wed","Ear","Tir","Unit","Is","And","Sam","Frank","Ger","Hes","Jefr","Ken","Link","Zyran","Xer","Cosc"};

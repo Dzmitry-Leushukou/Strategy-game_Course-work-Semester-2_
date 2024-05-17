@@ -57,6 +57,8 @@ public:
 
     short getResource() const;
 
+    short getId() const;
+
 public slots:
     // void HideError();
     // void ShowError();

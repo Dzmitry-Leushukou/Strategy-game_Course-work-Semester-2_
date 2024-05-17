@@ -186,6 +186,41 @@ void World::normalise_world()
             }
 
         }
+
+
+    for(int i=1;i<1440/32-1;i++)
+        for(int j=1;j<896/32-1;j++)
+            visited[i][j]=0;
+
+    int c=1;
+    for(int i=1;i<1440/32-1;i++)
+        for(int j=1;j<896/32-1;j++)
+        {
+
+            if(visited[i][j]==0)
+            {
+            kol[c]=0;
+            dfs(i,j,c);
+            c++;
+            }
+        }
+
+    while(c!=0)
+    {
+        if(kol[c]<3)
+        {
+            for(int i=1;i<1440/32-1;i++)
+                for(int j=1;j<896/32-1;j++)
+                {
+                    if(visited[i][j]==c)
+                    {
+                        getBlock(i*32,j*32)->change(0);
+                    }
+                }
+        }
+        c--;
+    }
+
     add_log("Normalise world ended");
 
 }
@@ -307,8 +342,28 @@ bool  World::try_spawn(double x, double y, int id)
     return players[Game::whosTurn%4]->Spawn(x,y,id);
 }
 
+void World::dfs(short x, short y, short c)
+{
+    //qDebug()<<x<<" "<<y;
+    visited[x][y]=c;
+    kol[c]++;
+    //We have bound rect created from water
+    for(int i=-1;i<=1;i++)
+        for(int j=-1;j<=1;j++)
+        {
+            if(i!=0&&j!=0)
+            {
+                break;
+            }
+
+            if(!visited[x+i][y+j]&&getBlock((x+i)*32,(y+j)*32)->getId()!=0)
+                dfs(x+i,y+j,c);
+        }
+}
+
 Block *World::getBlock(int x, int y)
 {
+    //qDebug()<<"!"<<x<<" "<<y;
     x/=32;
     y/=32;
     return blocks[x][y];
