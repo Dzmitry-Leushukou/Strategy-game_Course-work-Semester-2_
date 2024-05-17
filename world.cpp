@@ -221,6 +221,29 @@ void World::normalise_world()
         c--;
     }
 
+    //Bridges
+
+    timer=0;
+    for(int i=0;i<1440/32;i++)
+        for(int j=0;j<896/32;j++)
+            visited[i][j]=0,fup[i][j]=tin[i][j]=30000;
+
+    for(int i=1;i<1440/32-1;i++)
+        for(int j=1;j<896/32-1;j++)
+        {
+
+            if(visited[i][j]==0)
+            {
+                dfs2(i,j);
+            }
+        }
+
+    //qDebug()<<bridges.size();
+
+    for(auto& i:bridges)
+    {
+        getBlock(i.first,i.second)->change(0);
+    }
     add_log("Normalise world ended");
 
 }
@@ -353,11 +376,39 @@ void World::dfs(short x, short y, short c)
         {
             if(i!=0&&j!=0)
             {
-                break;
+                continue;
             }
 
             if(!visited[x+i][y+j]&&getBlock((x+i)*32,(y+j)*32)->getId()!=0)
                 dfs(x+i,y+j,c);
+        }
+}
+
+void World::dfs2(short x1, short y1, short x2, short y2)
+{
+    visited[x1][y1] = true;
+    tin[x1][y1] = fup[x1][y1] = timer++;
+
+    for(int i=-1;i<=1;i++)
+        for(int j=-1;j<=1;j++)
+        {
+            if((i!=0&&j!=0)||(x1+i==x2&&y1+j==y2)||(!(i!=0&&j!=0)&&getBlock((x1+i)*32,(y1+j)*32)->getId()==0))
+            {
+                continue;
+            }
+
+            if(visited[x1+i][y1+j])
+                fup[x1+i][y1+j]=std::min (fup[x1][y1], tin[x1+i][y1+j]);
+            else
+            {
+                dfs2(x1+i,y1+j,x1,y1);
+                fup[x1][y1] = std::min (fup[x1][y1], fup[x1+i][y1+i]);
+                if(fup[x1+i][y1+i]>tin[x1][y1])
+                {
+                    bridges.push_back({x1,y1});
+                    //bridges.push_back({x2,y2});
+                }
+            }
         }
 }
 
