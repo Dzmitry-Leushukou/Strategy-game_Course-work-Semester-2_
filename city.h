@@ -18,9 +18,10 @@ public:
     void build(int id);
     void addHp();
     short try_spawn();
+    void attack(short);
     //Getters
     bool getIs_city() const;
-    short getOwner() const;
+    //short getOwner() const;
     int getLevel() const;
     int getGrow_from() const;
 
@@ -36,6 +37,8 @@ public:
     void setBuild_finish(int newBuild_finish);
 
     void setBuild_id(int newBuild_id);
+
+    //void setOwner(short newOwner);
 
 private:
     bool is_city;

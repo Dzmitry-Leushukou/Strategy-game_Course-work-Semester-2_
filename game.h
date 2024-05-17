@@ -27,6 +27,7 @@ public:
     //Fields
     static long long whosTurn;
     static long long houses[];
+    static QVector<Player *>players;
     //Slots
 public slots:
     void next_turn();
@@ -41,7 +42,7 @@ private:
     Button *skip_button;
 
     World* map;
-    QVector<Player *>players;
+
 
 
 };

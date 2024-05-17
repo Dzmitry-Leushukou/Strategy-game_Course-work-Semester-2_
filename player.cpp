@@ -1,5 +1,6 @@
 #include "player.h"
 #include "game.h"
+#include "world.h"
 //QVector<int> Player::resource_amount={0,0,0,0,0};
 Player::Player(QGraphicsScene *&scene, int ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *&select,QGraphicsPolygonItem *&select_block,Button *& action_button,int n)
 {
@@ -44,7 +45,64 @@ bool Player::move_unit(QPointF pos, int x1, int y1)
             //qDebug()<<units[i]->pos();
             //units[i]->move(x1,y1);
 
-            if(units[i]->getMoves()==0||used[x1/32][y1/32]==true)return false;
+            if(units[i]->getMoves()==0)return false;
+
+            if(units[i]->getId()==2||units[i]->getId()==1)
+            {
+                qDebug()<<World::getBlock(x1,y1)->getOwner()<<" "<<Game::whosTurn%4;
+                if(World::getBlock(x1,y1)->getOwner()!=Game::whosTurn%4)
+                {
+
+                    if(World::getBlock(x1,y1)->isCity())
+                    {
+                        World::getBlock(x1,y1)->attack(units[i]->getAttack());
+                    }
+                    else
+                    {
+                        bool del=false;
+                        for(auto& p:Game::players)
+                        {
+                            int ind=0;
+                            if(del)break;
+                            for(auto& i:p->getUnits())
+                            {
+                                //qDebug()<<i->pos()<<" "<<QPointF(x1+5,y1+5);
+                                if(i->pos()==QPointF(x1,y1))
+                                {
+                                    qDebug()<<i->getOwner();
+                                    if(i->getOwner()!=Game::whosTurn%4+1)
+                                    {
+                                        qDebug()<<i;
+                                        i->kill();
+                                        //~i;
+                                        p->getUnits().removeAt(ind);
+                                        used[(int)pos.x()/32][(int)pos.y()/32]=true;
+                                        delete i;
+                                        i=nullptr;
+
+
+                                        del=true;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        qDebug()<<"!!!!";
+                                        return false;
+                                    }
+                                }
+                                ind++;
+                            }
+                        }
+                        if(World::getBlock(x1,y1)->getOwner()!=-1)
+                        World::getBlock(x1,y1)->setOwner(Game::whosTurn%4);
+                    }
+                }
+
+                if(World::getBlock(x1,y1)->isCity())
+                return false;
+            }
+            else if(used[x1/32][y1/32]==true){qDebug()<<"*********";return false;}
+
             used[x1/32][y1/32]=true;
             used[(int)pos.x()/32][(int)pos.y()/32]=false;
             units[i]->setMoves(0);
@@ -53,6 +111,7 @@ bool Player::move_unit(QPointF pos, int x1, int y1)
             return true;
         }
     }
+    qDebug()<<"-----------";
     return false;
 }
 

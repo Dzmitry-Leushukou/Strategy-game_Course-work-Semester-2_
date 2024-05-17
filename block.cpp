@@ -146,7 +146,7 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
             if(!player->move_unit(unit->pos(),l.first*32+11/2,l.second*32+11/2))
             {
                 //unit_error->setPos(1440/2-50,3);
-                QMessageBox::warning(widget,"Error","This unit have no steps on this turn");
+                QMessageBox::warning(widget,"Error","This unit have no steps on this turn / can't move on this field");
             }
         }
             getInfo();
@@ -162,7 +162,7 @@ void Block::getInfo()
    ShowBlockInfo(get_square_info(),block_info);
 
    //qDebug()<<City->getIs_city();
-   if(City->getIs_city())
+   if(City->getIs_city()&&owner==Game::whosTurn%4)
    {
        unit1_button->setPos(1441, 690-288-32-16);
        unit2_button->setPos(1441 + 35 +6, 690-288-32-16);
@@ -420,6 +420,11 @@ void Block::building_pos(QPointF pos)
     scene->addItem(building_texture);
 }
 
+void Block::attack(short dmg)
+{
+    City->attack(dmg);
+}
+
 std::string Block::get_square_info()
 {
     std::string res="=====Block info=====\n";
@@ -492,7 +497,7 @@ std::string Block::get_square_info()
         res+=std::to_string(City->getLevel())+"\n";
         res+="Grow from: "+std::to_string(City->getGrow_from())+"\n Walls LVL:"+std::to_string(building)+"\nHP"+std::to_string(City->getHp());
         //<<"="<<City;
-        if(City->getOwner()==Game::whosTurn%4&&City->getBuild_id()!=4)
+        if(owner==Game::whosTurn%4&&City->getBuild_id()!=4)
         {
             res+="\nBuild: ";
             switch(City->getBuild_id())
@@ -520,6 +525,7 @@ void Block::setOwner(short newOwner)
 {
     owner = newOwner;
     World::owners[x()/32][y()/32]=owner;
+    //City->setOwner(owner);
     updateTexture();
 }
 

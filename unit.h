@@ -21,12 +21,19 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void hide_select();
     int getMoves() const;
+    void kill();
 
     void setMoves(int newMoves);
 
     void action();
 
     int getActions() const;
+
+    int getId() const;
+
+    int getAttack() const;
+
+    int getOwner() const;
 
 private:
     int id;
@@ -36,7 +43,7 @@ private:
     int moves;
     int owner;
     //int moves;
-    //QGraphicsScene* scene;
+    QGraphicsScene* scene;
     int **used;
     std::pair<int,int> **map;
     QGraphicsPolygonItem * select;

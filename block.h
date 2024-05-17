@@ -41,6 +41,7 @@ public:
     short tick();
     void stop_build();
     void building_pos(QPointF pos);
+    void attack(short);
     //getters
     std::string get_square_info();
     short getHeight() const;

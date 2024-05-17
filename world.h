@@ -36,7 +36,7 @@ public:
     void dfs2(short, short,short x2=-1,short y2=-1);
     //Getters
     QList<Block*>getBlocks();
-    Block* getBlock(int,int);
+    static Block* getBlock(int,int);
     int** getUnitstay();
     std::pair<int,int> **getMap();
     void turn_update();

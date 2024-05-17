@@ -2,6 +2,7 @@
 
 long long Game::whosTurn=0;
 long long Game::houses[]={0,0,0,0};
+QVector<Player *>Game::players;
 Game::Game(QWidget *parent)
 {
     players.resize(4);

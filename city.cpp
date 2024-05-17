@@ -31,8 +31,9 @@ void city::create(short owner)
         setPixmap(QPixmap(":game/resource/city4.png"));
         break;
     }
-    //World::owners[x()/32][y()/32]=owner;
+    World::owners[x()/32][y()/32]=owner;
     Game::houses[Game::whosTurn%4]+=5;
+
 }
 
 
@@ -40,8 +41,15 @@ void city::create(short owner)
 void city::destroy()
 {
     is_city=false;
-    Game::houses[Game::whosTurn%4]+=5;
+    //Game::houses[Game::whosTurn%4]+=5;
+    //setPixmap();
+    hide();
     owner=-1;
+    level=1;
+    hp=100;
+    grow_from=10;
+    build_id=4;
+    build_finish=0;
 }
 
 void city::check()
@@ -145,16 +153,23 @@ short city::try_spawn()
     return build_id;
 }
 
+void city::attack(short dmg)
+{
+    hp-=dmg;
+    if(hp<=0)
+        destroy();
+}
+
 bool city::getIs_city() const
 {
     return is_city;
 }
-
+/*
 short city::getOwner() const
 {
     return owner;
 }
-
+*/
 int city::getLevel() const
 {
     return level;
@@ -195,3 +210,9 @@ void city::setBuild_id(int newBuild_id)
 {
     build_id = newBuild_id;
 }
+/*
+void city::setOwner(short newOwner)
+{
+    owner = newOwner;
+}
+*/

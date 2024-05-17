@@ -5,7 +5,7 @@
 //extern long long Game::whosTurn;
 
 Unit::Unit(QGraphicsScene*& scene,int ** used,  std::pair<int,int>** map, QGraphicsPolygonItem *& select,QGraphicsPolygonItem *& select_block, Button *& action_button,int n) {
-    //this->scene()=scene;
+    this->scene=scene;
     owner=n;
     this->used=used;
     this->select_block=select_block;
@@ -51,7 +51,7 @@ void Unit::Spawn(int id, double x, double y)
     setPos(x,y);
     used[(int)(x-11/2)/32][(int)(y-11/2)/32]=owner;
     drawUnit();
-    qDebug()<<scene();
+    //qDebug()<<scene();
 }
 
 void Unit::drawUnit()
@@ -140,10 +140,10 @@ void Unit::SetAttributes()
         attack=0,hp=10,actions=3;
         break;
     case 1:
-        attack=10,hp=20,actions=-1;
+        attack=15,hp=10,actions=-1;
         break;
     case 2:
-        attack=18,hp=20,actions=-1;
+        attack=20,hp=15,actions=-1;
         break;
     case 3:
         attack=0,hp=10,actions=1;
@@ -160,7 +160,7 @@ void Unit::mousePressEvent(QGraphicsSceneMouseEvent *event)
         select->setPos(pos());
 
         //qDebug()<<(Game::whosTurn)%4+1<<" "<<owner;
-        if((Game::whosTurn)%4+1==owner)
+        if((Game::whosTurn)%4+1==owner&&id!=1&&id!=2)
             action_button->setPos(1441,730);
         else
             action_button->setPos(-32,-32);
@@ -184,6 +184,12 @@ void Unit::hide_select()
 int Unit::getMoves() const
 {
     return moves;
+}
+
+void Unit::kill()
+{
+    qDebug()<<scene;
+    scene->removeItem(this);
 }
 
 void Unit::setMoves(int newMoves)
@@ -232,15 +238,6 @@ void Unit::action()
         break;
 
     default:
-        if(World::choosed_block->isCity())
-        {
-            QMessageBox::warning(0,"Error","You can't place city these");
-            return;
-        }
-        actions--;
-        World::choosed_block->build_city();
-        select->setPos(-32,-32);
-        action_button->setPos(-32,-32);
         break;
 
     }
@@ -249,4 +246,19 @@ void Unit::action()
 int Unit::getActions() const
 {
     return actions;
+}
+
+int Unit::getId() const
+{
+    return id;
+}
+
+int Unit::getAttack() const
+{
+    return attack;
+}
+
+int Unit::getOwner() const
+{
+    return owner;
 }
