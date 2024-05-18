@@ -8,14 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     cl();
-    /*
-    game=new Game();
-    connect(game, &Game::mainWindow, this, &MainWindow::show);
-*/
     game=nullptr;
     add_log("Main menu open");
-    //gamewindow = new GameWindow();
-    //connect(gamewindow, &GameWindow::firstWindow, this, &MainWindow::show);
+
 }
 
 MainWindow::~MainWindow()
